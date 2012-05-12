@@ -74,12 +74,12 @@ static float blue_B = 241.0/255;
     }
     [b1 addTarget:self action:@selector(buy:) forControlEvents:UIControlEventTouchDown];
     
-    [aview addSubview:alable1];
-    [aview addSubview:alable2];
+    [aview addSubview:alable1];[alable1 release];
+    [aview addSubview:alable2];[alable2 release];
     [aview addSubview:b1];
-    [aview addSubview:aimgview];
+    [aview addSubview:aimgview];[aimgview release];
     
-    [self addSubview:aview];
+    [self addSubview:aview];[aview release];
 }
 
 - (NSString*)getusernumber
