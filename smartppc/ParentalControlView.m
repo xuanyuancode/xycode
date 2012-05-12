@@ -89,12 +89,14 @@ static float blue_B = 241.0/255;
     [b1 addTarget:self action:@selector(buy:) forControlEvents:UIControlEventTouchUpInside];
     
     [aview addSubview:alable1];
+    [alable1 release];
     [aview addSubview:alable2];
+    [alable2 release];
     [aview addSubview:b1];
     [aview addSubview:aimgview];
-    
+    [aimgview release];
     [self addSubview:aview];
-    
+    [aview release];
     
     tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 182, width, 340) style:UITableViewStylePlain];
     tableview.delegate = self;
@@ -144,14 +146,14 @@ static float blue_B = 241.0/255;
     UILabel *l4 = [[UILabel alloc]initWithFrame:CGRectMake(40, 10, 90, 30)];
     l4.text=@"Number";
     [cell.contentView addSubview:l4];
-    
+    [l4 release];
     UITextField *t4 = [[UITextField alloc]initWithFrame:CGRectMake(140, 10, 200, 30)];
     t4.text = [thedict objectForKey:tel];
     t4.borderStyle = UITextBorderStyleRoundedRect;
     t4.tag = indexPath.row +1;
     [t4 addTarget:self action:@selector(change1:) forControlEvents:UIControlEventEditingDidEnd];
     [cell.contentView addSubview:t4];
-    
+    [t4 release];
     
     UIButton * button1 = [UIButton buttonWithType:UIButtonTypeCustom];
     button1.frame = CGRectMake(40, 75, 20, 20);
@@ -168,7 +170,7 @@ static float blue_B = 241.0/255;
     UILabel *l1 = [[UILabel alloc]initWithFrame:CGRectMake(70, 70, 100, 30)];
     l1.text=@"Games";
     [cell.contentView addSubview:l1];
-    
+    [l1 release];
     UIButton * button2 = [UIButton buttonWithType:UIButtonTypeCustom];
     button2.frame = CGRectMake(40+180, 75, 20, 20);
     button2.tag = 2+rownum;
@@ -183,7 +185,7 @@ static float blue_B = 241.0/255;
     UILabel *l2 = [[UILabel alloc]initWithFrame:CGRectMake(70+180, 70, 100, 30)];
     l2.text=@"Shopping";
     [cell.contentView addSubview:l2];
-    
+    [l2 release];
     UIButton * button3 = [UIButton buttonWithType:UIButtonTypeCustom];
     button3.frame = CGRectMake(40+180*2, 75, 20, 20);
     button3.tag = 3+rownum;
@@ -198,7 +200,7 @@ static float blue_B = 241.0/255;
     UILabel *l3 = [[UILabel alloc]initWithFrame:CGRectMake(70+180*2, 70, 180, 30)];
     l3.text=@"Social networking";
     [cell.contentView addSubview:l3];
-    
+    [l3 release];
     UIButton * button4 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     [button4 setTitle:@"Send" forState:UIControlStateNormal];
     button4.frame = CGRectMake(550, 35, 110, 35);
@@ -263,7 +265,7 @@ static float blue_B = 241.0/255;
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }
