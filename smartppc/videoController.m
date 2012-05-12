@@ -73,25 +73,18 @@ static int timelong = 1;
                                                      name:MPMoviePlayerPlaybackDidFinishNotification
                                                    object:moviePlayerController];
         
+        
         [moviePlayerController.view setFrame:CGRectMake(0, 
                                                         40, 
                                                         self.view.frame.size.width, 
                                                         self.view.frame.size.height-100)];
         
         [self.view addSubview:moviePlayerController.view];
-        
         [moviePlayerController play];
-       
         [moviePlayerController.view addSubview:myIndicator];
-     
         [myIndicator stopAnimating];
         [[[UIApplication sharedApplication] keyWindow] addSubview:myIndicator]; 
-          [self performSelector:@selector(lagEffect) withObject:nil afterDelay:1.0];
- 
-       
-         
-      
-        
+        [self performSelector:@selector(lagEffect) withObject:nil afterDelay:1.0];
     }
     
     else {
@@ -171,7 +164,7 @@ static int timelong = 1;
     [moviePlayerController pause];
     [self performSelector:@selector(playagain) withObject:nil afterDelay:2.0];
 
-   
+    //[self playagain];
 }
 
 -(void)lagEffect2
@@ -255,7 +248,7 @@ static int timelong = 1;
     }
    
     [myIndicator stopAnimating];
-
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object:nil];
 }
 -(IBAction)cancel:(id)sender
 {

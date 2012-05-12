@@ -112,6 +112,7 @@ static float blue_B = 241.0/255;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     int rownum = indexPath.row *10;
     static NSString *CellIdentifier = @"abc";
     
@@ -147,6 +148,7 @@ static float blue_B = 241.0/255;
     }else {
         [button1 setBackgroundImage:[UIImage imageNamed:@"checkbox_off_background.png"] forState:UIControlStateNormal];
     }
+    
     [button1 addTarget:self action:@selector(change2:) forControlEvents:UIControlEventTouchDown];
     [cell.contentView addSubview:button1];
 
@@ -229,9 +231,13 @@ static float blue_B = 241.0/255;
     }else {
         [b1 setTitle:@"cancel" forState:UIControlStateNormal];
         tableview.hidden = NO;
+   
+    
     }
-        list = [[NSMutableArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getplist.xql?userid=%@&data=pc",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]]; 
+    /*
+    list = [[NSMutableArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getplist.xql?userid=%@&data=pc",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]]; 
     [self.tableview reloadData];
+     */
 }
 
 - (NSString*)getusernumber
