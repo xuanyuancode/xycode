@@ -60,6 +60,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             }       
 
             [scrollview addSubview:button];
+            //[button release];
         }
         [self layoutScrollImages];
         scrollview.delegate = self;

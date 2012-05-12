@@ -81,10 +81,10 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
                 lable4.text = @"*sn";
             }
             
-            [self addSubview:lable1];
-            [self addSubview:lable2];
-            [self addSubview:lable3];
-            [self addSubview:lable4];
+            [self addSubview:lable1];[lable1 release];
+            [self addSubview:lable2];[lable2 release];
+            [self addSubview:lable3];[lable3 release];
+            [self addSubview:lable4];[lable4 release];
         }
         
     }
@@ -95,7 +95,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }

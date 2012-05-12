@@ -31,7 +31,7 @@ static int timelong = 1;
 {
    NSFileManager *fm = [[NSFileManager alloc]init];
    NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-   
+    [fm release];
    id key1 = @"user";
    return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }
@@ -132,6 +132,7 @@ static int timelong = 1;
        alertStatus = YES;
        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object: nil];
        [self.navigationController pushViewController:smart animated:YES];
+        [smart release];
    }
     
 }
