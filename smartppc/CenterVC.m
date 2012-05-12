@@ -37,7 +37,12 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [usernameLabel setHidden:NO];  
+    if (self.orderview != nil) {
+       self.orderview.orderid = [[[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getorderid.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
+        [self.orderview.tableview reloadData];
+    }
+    
+    [usernameLabel setHidden:NO];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -49,7 +54,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 - (void)viewDidLoad
 
 {    
-    pass = YES;
+  
     if (pass)
     {  
         [self loadtheview];

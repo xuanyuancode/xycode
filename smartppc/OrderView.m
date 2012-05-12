@@ -323,18 +323,32 @@ static int scroll_hight = 100;
             break;
         case 5:
         {
+            if (orderid != 0) {
             UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
             alertid = 100;
             [av1 show];
             [av1 release];
+            }else {
+                UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"please select package first!" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil,nil];
+                [av1 show];
+                [av1 release];
+            }
         }
             break;
         case 6:
         {
-            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
-            alertid = 100;
-            [av1 show];
-            [av1 release];
+            if (orderid != 0) {
+                UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
+                alertid = 100;
+                [av1 show];
+                [av1 release];
+            }else {
+                UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"please select package first!" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil,nil];
+                [av1 show];
+                [av1 release];
+            }
+           
+            
         }
             break;
             
