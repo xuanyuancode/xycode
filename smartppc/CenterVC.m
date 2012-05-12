@@ -38,7 +38,9 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 -(void)viewWillAppear:(BOOL)animated
 {
     if (self.orderview != nil) {
-       self.orderview.orderid = [[[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getorderid.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
+        NSString *st=[[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getorderid.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
+       self.orderview.orderid = [st intValue];
+        [st release];
         [self.orderview.tableview reloadData];
     }
     
@@ -90,6 +92,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     WebVC * vc = [[WebVC alloc]init];
     vc.url = [[websiteview.webpages objectAtIndex:(button.tag-1)] objectAtIndex:2];
     [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
 - (IBAction)tomenu:(id)sender;
@@ -98,12 +101,14 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     SmartPpcVC * vc = [[SmartPpcVC alloc]init];
     vc.state = button.tag;
     [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
 - (IBAction)play:(id)sender;
 { 
     videoController * vc = [[videoController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
+    [vc release];
 }
 
 -(UIImage *)addText:(UIImage *)img text:(NSString *)text1{
@@ -217,13 +222,14 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     
     NSURLResponse * response = nil;
     NSData *adata = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
-    int result = [[[NSString alloc] initWithData:adata encoding:NSUTF8StringEncoding] intValue];
-    
+    NSString *gg=[[NSString alloc] initWithData:adata encoding:NSUTF8StringEncoding];
+    int result = [gg intValue];
+    [gg release];
     if (result==1) {
         pass = YES;
         NSFileManager *fm = [[NSFileManager alloc]init];
         NSString * rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-
+        [fm release];
         [thedata writeToFile:[rootpath stringByAppendingPathComponent:@"user.xml"] atomically:YES];
         [infoview removeFromSuperview];
         [self loadtheview];
@@ -246,8 +252,11 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
+    [fm release];
     NSData *thedata = [NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]];
-    int result = [[[NSString alloc] initWithData:[self httppost:@"login.xql" data:thedata] encoding:NSUTF8StringEncoding] intValue];
+    NSString *c=[[NSString alloc] initWithData:[self httppost:@"login.xql" data:thedata] encoding:NSUTF8StringEncoding];
+    int result = [c intValue];
+    [c release];
 if (result==1){
   pass = YES;  
  [infoview removeFromSuperview];
@@ -291,7 +300,7 @@ if (result==1){
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }
@@ -327,6 +336,7 @@ if (result==1){
     SmartPpcVC * vc = [[SmartPpcVC alloc]init];
     vc.state = 1004;
     [self.navigationController pushViewController:vc animated:YES]; 
+    [vc release];
 }
 
 - (void)pushfly
@@ -362,7 +372,7 @@ if (result==1){
     int WWANSent = 0;
     int WWANReceived = 0;
     
-    NSString *name=[[NSString alloc]init];
+    NSString *name;//=[[NSString alloc]init];
     
     success = getifaddrs(&addrs) == 0;
     if (success) 
@@ -402,6 +412,7 @@ if (result==1){
 {
     userinfovc * vc = [[userinfovc alloc]init];
     [self.navigationController pushViewController:vc animated:YES]; 
+    [vc release];
 }
 
 - (void) viewDidAppear:(BOOL)animated

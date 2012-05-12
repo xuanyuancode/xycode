@@ -101,7 +101,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
     
         if (indexPath.row == 0) 
         {
