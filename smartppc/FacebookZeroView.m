@@ -41,6 +41,7 @@ static float blue_B = 241.0/255;
     
     lable1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 40)];
     lable1.text = @"  TIP";
+    lable1.textColor = [UIColor whiteColor];
     lable1.font = [UIFont systemFontOfSize:font+5];
     lable1.backgroundColor = [UIColor colorWithRed:blue_R green:blue_G blue:blue_B alpha:0.7];
     lable2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, width, 40)];
@@ -67,9 +68,9 @@ static float blue_B = 241.0/255;
     b1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     b1.frame = CGRectMake(500, 40, 110, 35);
     if (on == 0) {
-        [b1 setTitle:@"buy" forState:UIControlStateNormal];
+        [b1 setTitle:@"Buy" forState:UIControlStateNormal];
     }else {
-        [b1 setTitle:@"cancel" forState:UIControlStateNormal];
+        [b1 setTitle:@"Cancel" forState:UIControlStateNormal];
     }
     [b1 addTarget:self action:@selector(buy:) forControlEvents:UIControlEventTouchDown];
     
@@ -123,7 +124,7 @@ static float blue_B = 241.0/255;
         {
             case 100:
             {
-                [b1 setTitle:@"cancel" forState:UIControlStateNormal];
+                [b1 setTitle:@"Cancel" forState:UIControlStateNormal];
                 UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"ok" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
                 [aout show];
                 [aout release];
@@ -131,7 +132,7 @@ static float blue_B = 241.0/255;
                 break;
             case 101:
             {
-                 [b1 setTitle:@"buy" forState:UIControlStateNormal];  
+                 [b1 setTitle:@"Buy" forState:UIControlStateNormal];  
                 UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"cenceled" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
                 [aout show];
                 [aout release];

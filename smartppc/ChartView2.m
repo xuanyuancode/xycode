@@ -46,11 +46,22 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     
     list = [[NSMutableArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@qsdata.xql?userid=%@",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]];
     
-   float total= [[[[NSDictionary alloc]initWithDictionary:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@qqdata.xql?user=%@",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]] valueForKey:key_topV] floatValue]; 
+      NSDictionary *qqdata = [[NSDictionary alloc]initWithDictionary:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@qqdata.xql?user=%@",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]];    
+    
+    
+    id key_chargeV =@"chargeV";
+     int chargeV = [[qqdata valueForKey:key_chargeV] intValue];
+    
+     int total = [[qqdata valueForKey:key_topV] intValue];
+    
+   
+    
+
 
     
     title = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, title_hight)]; 
     title.text = @"  Quota Query";
+    
     title.backgroundColor=[UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     [self addSubview:title];
     
@@ -61,11 +72,15 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     id key3 = @"limit"; 
     
     CGContextRef cn = UIGraphicsGetCurrentContext();
+    NSString *getUsername = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getusername.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
+    
+    [self drawimg2:getUsername :[self getusernumber] :chargeV :total :0 :cn];
+    
     int i;
     for (i=0; i<[list count]; i++) {
         NSDictionary * thedict= [list objectAtIndex:i];
         if ([[thedict objectForKey:key1] length] >0 ) {
-             [self drawimg2:[thedict objectForKey:key2] :[thedict objectForKey:key1] :[[thedict objectForKey:key3]floatValue] :total :i :cn];
+             [self drawimg3:[thedict objectForKey:key2] :[thedict objectForKey:key1] :[[thedict objectForKey:key3]floatValue] :100 :i+1 :cn];
         }
        
     }  
@@ -73,7 +88,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 
 -(void) drawimg2:(NSString*)user:(NSString*)number:(float)theused:(float)thetotal:(int)offset:(CGContextRef)cn
 {
-    NSString * s1 = [NSString stringWithFormat:@" %0.0fMB",theused];
+    NSString * s1 = [NSString stringWithFormat:@" %0.0fMB",thetotal];
     NSString * s2 = @"max:";
     CGContextSetLineWidth(cn, 2.0);
     
@@ -96,6 +111,33 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     [path2 addLineToPoint:CGPointMake(rect_x + (rect_width * theused/thetotal), title_hight+rect_y + rect_hight+ dist_rect*offset)];
     [path2 addLineToPoint:CGPointMake(rect_x,title_hight+ rect_y + rect_hight+ dist_rect*offset)];
     [path2 fill];
+    
+    CGContextSetRGBFillColor (cn, 0, 0, 0, 1);
+    CGContextSetRGBStrokeColor(cn, 0, 0, 0, 1);
+    [user drawInRect:CGRectMake(30, title_hight+rect_y+ dist_rect*offset, 80, 30) withFont:[UIFont systemFontOfSize:font]];
+    [number drawInRect:CGRectMake(140, title_hight+rect_y+ dist_rect*offset, 80, 30) withFont:[UIFont systemFontOfSize:font]];
+    
+    [s1 drawInRect:CGRectMake(500, title_hight+rect_y+ dist_rect*offset, 80, 30) withFont:[UIFont systemFontOfSize:font]];
+    [s2 drawInRect:CGRectMake(290, title_hight+rect_y+ dist_rect*offset, 80, 30) withFont:[UIFont systemFontOfSize:font]];
+}
+
+-(void) drawimg3:(NSString*)user:(NSString*)number:(float)theused:(float)thetotal:(int)offset:(CGContextRef)cn
+{
+    NSString * s1 = [NSString stringWithFormat:@" %0.0fMB",theused];
+    NSString * s2 = @"max:";
+    CGContextSetLineWidth(cn, 2.0);
+    
+    
+    CGContextSetRGBFillColor (cn, 1, 1, 1, 1);
+    CGContextSetRGBStrokeColor(cn, 0.7, 0.7, 0.7, 1);
+    
+    UIBezierPath * path1 = [UIBezierPath bezierPath];
+    [path1 moveToPoint:CGPointMake(rect_x, title_hight+ rect_y + dist_rect *offset)];
+    [path1 addLineToPoint:CGPointMake(rect_x + rect_width, title_hight+rect_y+ dist_rect*offset)];
+    [path1 addLineToPoint:CGPointMake(rect_x + rect_width, title_hight+rect_y + rect_hight+ dist_rect*offset)];
+    [path1 addLineToPoint:CGPointMake(rect_x, title_hight+rect_y + rect_hight+ dist_rect*offset)];
+    [path1 closePath];
+    [path1 stroke];
     
     CGContextSetRGBFillColor (cn, 0, 0, 0, 1);
     CGContextSetRGBStrokeColor(cn, 0, 0, 0, 1);

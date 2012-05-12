@@ -8,7 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-@interface X_Day_Pass : UIView <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
+@interface X_Day_Pass : UIView <UITableViewDelegate,UITableViewDataSource>
+{
+    UITextField *password;
+    int buttonTag;
+    BOOL infostatus;
+    int countButton;
+    BOOL buttonStatus;
+    BOOL cancelStatus;
+}
 
 @property(nonatomic,retain) UILabel * lable1;
 @property(nonatomic,retain) UILabel * lable2;
@@ -16,9 +24,7 @@
 @property(nonatomic,retain) UITableView * tableview;
 @property(nonatomic,retain) NSArray * list;
 @property(nonatomic,retain) NSString * ordername;
-@property(nonatomic,retain)UITextField * password;
-@property int alertid;
-
+@property (nonatomic,retain)UITextField *password;
 - (IBAction)buy:(id)sender;
 - (NSString*)getusernumber;
 @end

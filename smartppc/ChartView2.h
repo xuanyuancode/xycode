@@ -13,5 +13,6 @@
 @property (nonatomic,retain) NSArray * list;
 @property (nonatomic,retain) UILabel * title;
 -(void) drawimg2:(NSString*)user:(NSString*)number:(float)theused:(float)thetotal:(int)offset:(CGContextRef)cn;
+-(void) drawimg3:(NSString*)user:(NSString*)number:(float)theused:(float)thetotal:(int)offset:(CGContextRef)cn;
 
 @end

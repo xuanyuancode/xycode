@@ -39,7 +39,10 @@
     
     
     UILabel *name22,*quoteLabel22,*number22;
+    
+    UILabel *lable1;
 }
+
 @property (nonatomic,retain) NSString *getNumber2,*getName2,*getQuote2;
 @property (nonatomic,retain) NSMutableArray *nameArray,*limitArray,*telArray;
 @property (nonatomic,retain) UIButton *minusButton;

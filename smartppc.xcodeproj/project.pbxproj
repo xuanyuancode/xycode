@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		01184D26155E4AD300987FCC /* web_add.png in Resources */ = {isa = PBXBuildFile; fileRef = 01184D25155E4AD300987FCC /* web_add.png */; };
 		01184D30155E53FC00987FCC /* QuoteSharingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01184D2F155E53FC00987FCC /* QuoteSharingView.m */; };
+		01184D39155E651000987FCC /* X-Day-Pass.m in Sources */ = {isa = PBXBuildFile; fileRef = 01184D38155E650F00987FCC /* X-Day-Pass.m */; };
 		012A5FC3155E09390094D8BC /* web2.png in Resources */ = {isa = PBXBuildFile; fileRef = 012A5FC2155E09390094D8BC /* web2.png */; };
 		012A5FC7155E123D0094D8BC /* bakcup.png in Resources */ = {isa = PBXBuildFile; fileRef = 012A5FC5155E123D0094D8BC /* bakcup.png */; };
 		012A5FC8155E123D0094D8BC /* restore.png in Resources */ = {isa = PBXBuildFile; fileRef = 012A5FC6155E123D0094D8BC /* restore.png */; };
@@ -17,7 +18,6 @@
 		1C1AD9171555FFCD005491CA /* backupSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1AD9161555FFCC005491CA /* backupSelect.m */; };
 		1C1AD91915560201005491CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1AD91815560201005491CA /* AddressBook.framework */; };
 		1C234EF41543B6A200567590 /* InfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C234EF31543B6A200567590 /* InfoView.m */; };
-		1C2B98AA1538314A0042E883 /* X-Day-Pass.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C2B98A91538314A0042E883 /* X-Day-Pass.m */; };
 		1C440A811548F9AF00E7F56E /* movie3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C440A801548F9AF00E7F56E /* movie3.png */; };
 		1C440A831548F9B900E7F56E /* web3.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C440A821548F9B900E7F56E /* web3.png */; };
 		1C440A851548F9BD00E7F56E /* web4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C440A841548F9BD00E7F56E /* web4.png */; };
@@ -131,6 +131,8 @@
 		01184D25155E4AD300987FCC /* web_add.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = web_add.png; sourceTree = "<group>"; };
 		01184D2F155E53FC00987FCC /* QuoteSharingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuoteSharingView.m; sourceTree = "<group>"; };
 		01184D31155E540B00987FCC /* QuoteSharingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuoteSharingView.h; sourceTree = "<group>"; };
+		01184D38155E650F00987FCC /* X-Day-Pass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "X-Day-Pass.m"; sourceTree = "<group>"; };
+		01184D3A155E651700987FCC /* X-Day-Pass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "X-Day-Pass.h"; sourceTree = "<group>"; };
 		012A5FC2155E09390094D8BC /* web2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = web2.png; sourceTree = "<group>"; };
 		012A5FC5155E123D0094D8BC /* bakcup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bakcup.png; sourceTree = "<group>"; };
 		012A5FC6155E123D0094D8BC /* restore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restore.png; sourceTree = "<group>"; };
@@ -141,8 +143,6 @@
 		1C1AD91815560201005491CA /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		1C234EF21543B6A200567590 /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = InfoView.h; path = ../InfoView.h; sourceTree = "<group>"; };
 		1C234EF31543B6A200567590 /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = InfoView.m; path = ../InfoView.m; sourceTree = "<group>"; };
-		1C2B98A81538314A0042E883 /* X-Day-Pass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "X-Day-Pass.h"; sourceTree = "<group>"; };
-		1C2B98A91538314A0042E883 /* X-Day-Pass.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "X-Day-Pass.m"; sourceTree = "<group>"; };
 		1C440A801548F9AF00E7F56E /* movie3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = movie3.png; sourceTree = "<group>"; };
 		1C440A821548F9B900E7F56E /* web3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = web3.png; sourceTree = "<group>"; };
 		1C440A841548F9BD00E7F56E /* web4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = web4.png; sourceTree = "<group>"; };
@@ -412,15 +412,15 @@
 				1CD8A526152F19ED0005A894 /* ChartView.m */,
 				1CB011861530391900774FAB /* VediosView.h */,
 				1CB011871530391900774FAB /* VediosView.m */,
+				01184D3A155E651700987FCC /* X-Day-Pass.h */,
+				01184D38155E650F00987FCC /* X-Day-Pass.m */,
 				1CCBDC6B15326B7800751036 /* CloundView.h */,
 				1CCBDC6C15326B7800751036 /* CloundView.m */,
 				1CCBDC711532DC9700751036 /* SmartppcMenu.h */,
 				1CCBDC721532DC9800751036 /* SmartppcMenu.m */,
 				1CCAB9A81533C42D0008A1DD /* QuotaQueryView.h */,
 				1CCAB9A91533C42D0008A1DD /* QuotaQueryView.m */,
-				1C2B98A91538314A0042E883 /* X-Day-Pass.m */,
 				1C9018C1153BAC3200A2FA92 /* TurboButtonView.h */,
-				1C2B98A81538314A0042E883 /* X-Day-Pass.h */,
 				1C9018C2153BAC3200A2FA92 /* TurboButtonView.m */,
 				1CC37F29153BF9C20087D0BC /* ParentalControlView.h */,
 				1CC37F2A153BF9C20087D0BC /* ParentalControlView.m */,
@@ -663,7 +663,6 @@
 				1CCAB9AA1533C42D0008A1DD /* QuotaQueryView.m in Sources */,
 				1CE049CB1536B44700F84DBE /* ChartView3.m in Sources */,
 				1CE0116E15370F9B0005FF60 /* ChartView4.m in Sources */,
-				1C2B98AA1538314A0042E883 /* X-Day-Pass.m in Sources */,
 				1C9018C3153BAC3200A2FA92 /* TurboButtonView.m in Sources */,
 				1CC37F2B153BF9C20087D0BC /* ParentalControlView.m in Sources */,
 				1CD7432F153D030000179491 /* FacebookZeroView.m in Sources */,
@@ -685,6 +684,7 @@
 				1CB72114155961D500962E71 /* userinfo.m in Sources */,
 				1CC8AC86155A20970084E2E6 /* userinfovc.m in Sources */,
 				01184D30155E53FC00987FCC /* QuoteSharingView.m in Sources */,
+				01184D39155E651000987FCC /* X-Day-Pass.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

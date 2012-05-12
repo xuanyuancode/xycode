@@ -37,7 +37,7 @@ static int title_hight = 40;
         webpages = [[NSArray alloc] initWithObjects:web1,web2,web3,web4,web5,nil];
         
         self.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
-        scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(10, 70, width-20, 70)];
+        scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(10, 70, width-20, 80)];
         scrollview.pagingEnabled=YES;
         
         thetext=[[UILabel alloc]initWithFrame:CGRectMake(20, title_hight, width-40, 25)];

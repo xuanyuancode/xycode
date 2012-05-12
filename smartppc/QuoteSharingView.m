@@ -72,7 +72,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
           [telArray addObject:tel];
 
         }
-       
+      
     }
     return self;
 }
@@ -96,6 +96,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     lable1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 40)];
     lable1.text = @"  TIP";
     lable1.font = [UIFont systemFontOfSize:font+5];
+    lable1.textColor = [UIColor whiteColor];
     lable1.backgroundColor = [UIColor colorWithRed:blue_R green:blue_G blue:blue_B alpha:0.7];
     lable2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, width, 40)];
     lable2.font = [UIFont systemFontOfSize:font+3];
@@ -103,6 +104,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     lable2.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
     lable3 = [[UILabel alloc]initWithFrame:CGRectMake(0, 178, width, 40)];
     lable3.text = @"  Quota Sharing";
+    lable3.textColor = [UIColor whiteColor];
     lable3.font = [UIFont systemFontOfSize:font+6];
     lable3.backgroundColor = [UIColor colorWithRed:blue_R green:blue_G blue:blue_B alpha:0.7];
     [self addSubview:lable1];
@@ -139,7 +141,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     id key3 = @"volume";
     id key4 = @"on";
     
-    NSDictionary * member1 = [NSDictionary dictionaryWithObjectsAndKeys:@"Dad",key1,@"123456781",key2,[NSNumber numberWithFloat:30] ,key3,[NSNumber numberWithInt:1],key4,nil];
+    //NSDictionary * member1 = [NSDictionary dictionaryWithObjectsAndKeys:@"Dad",key1,@"123456781",key2,[NSNumber numberWithFloat:30] ,key3,[NSNumber numberWithInt:1],key4,nil];
     
     NSDictionary * member2 = [NSDictionary dictionaryWithObjectsAndKeys:@"Mam",key1,@"123456782",key2,[NSNumber numberWithFloat:20],key3,[NSNumber numberWithInt:0],key4,nil];
     
@@ -153,11 +155,20 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     [self addSubview:tableview];
     
     if (list == nil) {
-        [b1 setTitle:@"buy" forState:UIControlStateNormal];
+        [b1 setTitle:@"Buy" forState:UIControlStateNormal];
         tableview.hidden = YES;
     }else {
-        [b1 setTitle:@"cancel" forState:UIControlStateNormal];
+        [b1 setTitle:@"Cancel" forState:UIControlStateNormal];
     }
+    
+    NSString *checking = [NSString stringWithFormat:@"%@",[nameArray objectAtIndex:0]];
+    
+    
+    if (checking.length <1) {
+        tableview.hidden = YES;
+        [b1 setTitle:@"Buy" forState:UIControlStateNormal];
+    }
+    
     
 }
 
@@ -579,8 +590,8 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     
     else if(buttonIndex == 1 && tipstatus)
     {
-        [b1 setTitle:@"buy" forState:UIControlStateNormal];
-        tableview.hidden = YES;  
+        [b1 setTitle:@"Buy" forState:UIControlStateNormal];
+          
         
         NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
         NSString *documentsDirectoryPath = [paths objectAtIndex:0];
@@ -601,7 +612,12 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         
         list = [[NSMutableArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@qsdata.xql?userid=%@",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]]; 
         
+       number1.text = @"";
+      name1.text = @"";
+        quote.text = @"";
+        
         [tableview reloadData];
+        tableview.hidden = YES;
     }
     
     
@@ -615,7 +631,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 - (IBAction)buy:(id)sender
 {
     UIButton * abutton = (UIButton*) sender;
-    if (abutton.titleLabel.text == @"cancel") {
+    if (abutton.titleLabel.text == @"Cancel") {
         
         UIAlertView *tipalert = [[UIAlertView alloc]initWithTitle:@"Information" message:@"The Quote sharing package will be cancel" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         
@@ -625,7 +641,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         tipstatus = YES;
       
     }else {
-        [b1 setTitle:@"cancel" forState:UIControlStateNormal];
+        [b1 setTitle:@"Cancel" forState:UIControlStateNormal];
         tableview.hidden = NO; 
        
     }

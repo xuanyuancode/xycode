@@ -149,7 +149,9 @@ static float yellow_B = 231.0/255;
      NSString * s7 = [NSString stringWithFormat:@"Charge Volume: %dM",chargeV];
      NSString * s8 = [NSString stringWithFormat:@"Non-package Volume %dM",NpackageV];
      NSString * s10 = [NSString stringWithFormat:@"%dMB",NpackageV];
-     NSString * s11 = @"The Volume saved";
+     NSString * s11 = @"The Total Saving";
+    
+  NSString *totalSaving = [NSString stringWithFormat:@"%0.0fKb",[[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=nopackageV&userid=%@&volume=0",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] floatValue]*1024.0];
     
 
     [s1 drawInRect:CGRectMake(60, 47, 60, 30) withFont:[UIFont systemFontOfSize:font]];
@@ -160,7 +162,9 @@ static float yellow_B = 231.0/255;
     [s6 drawInRect:CGRectMake(list_x + 30 , 54+30, 210.0, 20.0) withFont:[UIFont systemFontOfSize:font]];
     [s7 drawInRect:CGRectMake(list_x + 30 , 54+60, 210.0, 20.0) withFont:[UIFont systemFontOfSize:font]];
     [s8 drawInRect:CGRectMake(list_x + 30 , 54+90, 210.0, 20.0) withFont:[UIFont systemFontOfSize:font]];
-    [s10 drawInRect:CGRectMake(570 , 130, 100.0, 50.0) withFont:[UIFont systemFontOfSize:font+6]];
+     s10 = totalSaving;
+    [s10 drawInRect:CGRectMake(520 , 130, 100.0, 50.0) withFont:[UIFont systemFontOfSize:font+6]];
+   
     [s11 drawInRect:CGRectMake(520 , 75, 200.0, 60.0) withFont:[UIFont systemFontOfSize:font+2]];
     
     scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(20, 262, 690,300)];

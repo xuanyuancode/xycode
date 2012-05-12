@@ -31,6 +31,14 @@ static float blue_B = 241.0/255;
     if (self) {
          self.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
         // Initialization code
+        on = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pcison.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
+        
+        if (on == 0) {
+            [b1 setTitle:@"buy" forState:UIControlStateNormal];
+            tableview.hidden = YES;
+        }
+        
+        
     }
     return self;
 }
@@ -48,8 +56,7 @@ static float blue_B = 241.0/255;
     //lable1.textColor = [UIColor colorWithWhite];
     lable1.font = [UIFont systemFontOfSize:font+5];
     lable1.textColor = [UIColor whiteColor];
-    
-    
+
     lable1.backgroundColor = [UIColor colorWithRed:blue_R green:blue_G blue:blue_B alpha:0.7];
     lable2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, width, 40)];
     lable2.font = [UIFont systemFontOfSize:font+3];
@@ -94,7 +101,7 @@ static float blue_B = 241.0/255;
     tableview.dataSource = self;
     [tableview setBounces:NO];
     on = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pcison.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
-
+ 
     if (on == 0) {
         [b1 setTitle:@"buy" forState:UIControlStateNormal];
         tableview.hidden = YES;
