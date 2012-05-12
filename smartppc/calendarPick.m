@@ -53,6 +53,7 @@
 {   NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
     [outputFormatter setDateFormat:@"MM-dd-yyyy"];
     NSString *result = [outputFormatter stringFromDate:flightdate.date];
+    [outputFormatter release];
     [((AppDelegate *)APPDELEGATE).fv.dateButton setTitle:result forState:UIControlStateNormal];
     [((AppDelegate *)APPDELEGATE).fv.dateButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
 }
