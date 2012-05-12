@@ -122,6 +122,9 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 {
     
     if (buttonIndex == 0) {
+        if (alertid == 101) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
         
     }
     
