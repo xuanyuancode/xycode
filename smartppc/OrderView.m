@@ -203,16 +203,20 @@ static int scroll_hight = 100;
     
         id key1 = @"price";
         id key2 = @"volume";
+    
+    
         switch (indexPath.row) {
             case 0:
             {
                 cell.textLabel.text = @"Package";
                 cell.textLabel.font = [UIFont systemFontOfSize:18];
-                
+                [cell.imageView setImage:nil];
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
                 break;
             case 1:
             { 
+                 [cell.imageView setImage:[UIImage imageNamed:@"arrow_choosed.png"]];
                 NSDictionary * adict = [orderlist objectAtIndex:0];
                 cell.textLabel.text = [NSString stringWithFormat:@"%@$ package%@ MB/month", [adict objectForKey:key1],[adict objectForKey:key2]];
                 cell.textLabel.font = [UIFont systemFontOfSize:font + 3]; 
@@ -225,6 +229,7 @@ static int scroll_hight = 100;
                 break;
             case 2:
             { NSDictionary * adict = [orderlist objectAtIndex:1];
+                 [cell.imageView setImage:[UIImage imageNamed:@"arrow_choosed.png"]];
                 cell.textLabel.text = [NSString stringWithFormat:@"%@$ package%@ MB/month", [adict objectForKey:key1],[adict objectForKey:key2]];
                 cell.textLabel.font = [UIFont systemFontOfSize:font + 3]; 
                 
@@ -237,6 +242,7 @@ static int scroll_hight = 100;
                 break;
             case 3:
             { NSDictionary * adict = [orderlist objectAtIndex:2];
+                 [cell.imageView setImage:[UIImage imageNamed:@"arrow_choosed.png"]];
                 cell.textLabel.text = [NSString stringWithFormat:@"%@$ package%@ MB/month", [adict objectForKey:key1],[adict objectForKey:key2]];
                 cell.textLabel.font = [UIFont systemFontOfSize:font + 3]; 
                 
@@ -248,13 +254,15 @@ static int scroll_hight = 100;
             }
                 break;
             case 4:
-            {
+            {[cell.imageView setImage:nil];
                 cell.textLabel.text = @"Top Up"; 
                 cell.textLabel.font = [UIFont systemFontOfSize:18];
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
                 break;
             case 5:
             { NSDictionary * adict = [orderlist objectAtIndex:3];
+                 [cell.imageView setImage:[UIImage imageNamed:@"arrow_choosed.png"]];
                 cell.textLabel.text = [NSString stringWithFormat:@"%@$ package%@ MB/month", [adict objectForKey:key1],[adict objectForKey:key2]];
                 cell.textLabel.font = [UIFont systemFontOfSize:font + 3]; 
                 
@@ -267,6 +275,7 @@ static int scroll_hight = 100;
                 break;
             case 6:
             { NSDictionary * adict = [orderlist objectAtIndex:4];
+                 [cell.imageView setImage:[UIImage imageNamed:@"arrow_choosed.png"]];
                 cell.textLabel.text = [NSString stringWithFormat:@"%@$ package%@ MB/month", [adict objectForKey:key1],[adict objectForKey:key2]];
                 cell.textLabel.font = [UIFont systemFontOfSize:font + 3]; 
                 
