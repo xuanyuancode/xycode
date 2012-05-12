@@ -40,14 +40,16 @@ static int timelong = 1;
 -(void)play
 {
     
-   NSLog(@"final value %@",[thedict objectForKey:@"value"]);
+   //NSLog(@"final value %@",[thedict objectForKey:@"value"]);
+   
    
    if ([[thedict objectForKey:@"value"] intValue] >0)
    {
       comfirm = NO;
    }
+    
    else {
-      comfirm = YES;
+       comfirm = YES;
        autoTimer = [NSTimer scheduledTimerWithTimeInterval:(4.0)
                                                     target:self 
                                                   selector:@selector(lagEffect) 
@@ -61,7 +63,6 @@ static int timelong = 1;
       
        NSLog(@"autotimer:%@,",autoTimer);
       
-       
        
         NSString *path = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"testvideo.m4v"];
         NSURL    *fileURL    =   [NSURL fileURLWithPath:path];
@@ -130,17 +131,13 @@ static int timelong = 1;
     
     else if (buttonIndex == 1)
     {
-         [myIndicator stopAnimating];
+       [myIndicator stopAnimating];
        SmartPpcVC *smart = [[SmartPpcVC alloc]init];
-        smart.state = 1000;
+       smart.state = 1000;
        alertStatus = YES;
        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object: nil];
-        
-
        [self.navigationController pushViewController:smart animated:YES];
    }
-    
-
     
 }
 
@@ -148,10 +145,10 @@ static int timelong = 1;
 {
     if (alertStatus) {
         UIAlertView *customAlertView = [[UIAlertView alloc]initWithTitle:@"Information"
-                                                                 message:@"Subscribe Turbo Button,enjoy max. bandwidth up to 3.6Mbps!"
-                                                                delegate:self
-                                                       cancelButtonTitle:@"NO"
-                                                       otherButtonTitles:@"YES",nil];
+                                                            message:@"Subscribe Turbo Button,enjoy max. bandwidth up to 3.6Mbps!"
+                                                            delegate:self
+                                                            cancelButtonTitle:@"NO"
+                                                            otherButtonTitles:@"YES",nil];
         [customAlertView show];
         [customAlertView release];
         alertStatus = NO;
@@ -161,8 +158,6 @@ static int timelong = 1;
 
 -(void)lagEffect
 {
-    NSLog(@"FFF");
-    
     count++;
     
     NSLog(@"count %d",count);
@@ -175,8 +170,7 @@ static int timelong = 1;
     [myIndicator startAnimating];
     [moviePlayerController pause];
     [self performSelector:@selector(playagain) withObject:nil afterDelay:2.0];
-   //sleep(3);
-   //[moviePlayerController play];
+
    
 }
 
@@ -204,7 +198,6 @@ static int timelong = 1;
 }
 -(void)playagain
 {
-
    [myIndicator stopAnimating];
    [moviePlayerController play];
    //[self play];
@@ -243,6 +236,11 @@ static int timelong = 1;
 
 -(void)viewWillDisappear:(BOOL)animated
 {
+    if(playStatus)
+    {
+        [moviePlayerController stop];
+    }
+    
     if ([timer isValid]) {
         [timer invalidate];
         timer = nil;
@@ -256,11 +254,7 @@ static int timelong = 1;
        NSLog(@"willdisappear go");
     }
    
-   if(playStatus)
-   {
-
-   [moviePlayerController stop];
-   }
+    [myIndicator stopAnimating];
 
 }
 -(IBAction)cancel:(id)sender

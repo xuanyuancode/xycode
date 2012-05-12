@@ -37,6 +37,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     return self;
 }
 
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -102,7 +103,8 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
-        if (indexPath.row == 0) {
+        if (indexPath.row == 0) 
+        {
             UIImage *backupimg = [UIImage imageNamed:@"bakcup.png"];
             UIImageView *backupimgview = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, backupimg.size.width, backupimg.size.height)];
             backupimgview.image = backupimg;
@@ -111,11 +113,10 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             backup.text = @"Back up contacts";
             backup.backgroundColor = [UIColor clearColor];
             [cell.contentView addSubview:backup];
-            
-        
-        
         }
-        else {
+        
+        else 
+        {
         
             UIImage *restoreimg = [UIImage imageNamed:@"restore.png"];
             UIImageView *restoreimgview = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, restoreimg.size.width, restoreimg.size.height)];
