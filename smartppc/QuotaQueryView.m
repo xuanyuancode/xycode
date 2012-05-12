@@ -119,7 +119,7 @@ static float yellow_B = 231.0/255;
     id key_volume =@"volume";
     NSString * as = [[orderlist objectAtIndex:(package-1001)] objectForKey:key_volume];    
     package = [as intValue];
-    
+    [orderlist release];
     CGContextSetLineWidth(cn, 2.0);
     
     CGContextSetRGBStrokeColor(cn, 0.7, 0.7, 0.7, 1);
@@ -173,9 +173,15 @@ static float yellow_B = 231.0/255;
     [s11 drawInRect:CGRectMake(520 , 75, 200.0, 60.0) withFont:[UIFont systemFontOfSize:font+2]];
     
     scrollview = [[UIScrollView alloc] initWithFrame:CGRectMake(20, 262, 690,300)];
-    [scrollview addSubview:[[ChartView2 alloc]initWithFrame:CGRectMake(0, 0, 690,130)]];
-    [scrollview addSubview:[[ChartView3 alloc]initWithFrame:CGRectMake(0, 130, 690,130)]];
-    [scrollview addSubview:[[ChartView4 alloc]initWithFrame:CGRectMake(0, 260, 690,130)]];
+    ChartView2 *c2=[[ChartView2 alloc]initWithFrame:CGRectMake(0, 0, 690,130)];
+    [scrollview addSubview:c2];
+    [c2 release];
+    ChartView3 *c3=[[ChartView3 alloc]initWithFrame:CGRectMake(0, 130, 690,130)];
+    [scrollview addSubview:c3];
+    [c3 release];
+    ChartView4 *c4=[[ChartView4 alloc]initWithFrame:CGRectMake(0, 260, 690,130)];
+    [scrollview addSubview:c4];
+    [c4 release];
     
     UIView *aview = [[UIView alloc]initWithFrame:CGRectMake(0,520,690,130)];
     aview.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
@@ -183,23 +189,25 @@ static float yellow_B = 231.0/255;
     title.text = @"  X-Day-Pass";
     title.backgroundColor=[UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     [aview addSubview:title];
+    [title release];
     UILabel *showsv = [[UILabel alloc]initWithFrame:CGRectMake(40, 50, 400, 30)]; 
     
     showsv.text = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getxdaypassname.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
     showsv.font = [UIFont systemFontOfSize:font];
     showsv.backgroundColor=[UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
     [aview addSubview:showsv];
-    
+    [showsv release];
     
     [scrollview addSubview:aview];
     
-    
+    [aview release];
     UIView *aview2 = [[UIView alloc]initWithFrame:CGRectMake(0,390,690,130)];
     aview2.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
     UILabel *title21 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, title_hight)]; 
     title21.text = @"  FaceBook Zero";
     title21.backgroundColor=[UIColor colorWithRed:0.95 green:0.95 blue:0.95 alpha:1];
     [aview2 addSubview:title21];
+    [title21 release];
     UILabel *showsv2 = [[UILabel alloc]initWithFrame:CGRectMake(40, 50, 400, 30)]; 
     
     if ([[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@webisfree.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue] == 1) 
@@ -211,8 +219,9 @@ static float yellow_B = 231.0/255;
     showsv2.font = [UIFont systemFontOfSize:font];
     showsv2.backgroundColor=[UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
     [aview2 addSubview:showsv2];
+    [showsv2 release];
     [scrollview addSubview:aview2];
-
+    [aview2 release];
     [scrollview setContentSize:CGSizeMake(690,130*5)];
     [self addSubview:scrollview];
     
@@ -222,7 +231,7 @@ static float yellow_B = 231.0/255;
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm  release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }
