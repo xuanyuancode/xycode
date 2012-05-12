@@ -11,7 +11,7 @@
 
 @implementation OrderView
 
-@synthesize tableview,scrollview,button1,button2,list1,list2,orderlist,qqdata,orderid,alertid,password;
+@synthesize tableview,scrollview,button1,button2,list1,list2,orderlist,qqdata,orderid,alertid,password,selectline;
 
 static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xql/";
 
@@ -266,11 +266,6 @@ static int scroll_hight = 100;
                 cell.textLabel.text = [NSString stringWithFormat:@"%@$ package%@ MB/month", [adict objectForKey:key1],[adict objectForKey:key2]];
                 cell.textLabel.font = [UIFont systemFontOfSize:font + 3]; 
                 
-                if (orderid == 1004) {
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                } else {
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                } 
             }
                 break;
             case 6:
@@ -279,11 +274,6 @@ static int scroll_hight = 100;
                 cell.textLabel.text = [NSString stringWithFormat:@"%@$ package%@ MB/month", [adict objectForKey:key1],[adict objectForKey:key2]];
                 cell.textLabel.font = [UIFont systemFontOfSize:font + 3]; 
                 
-                if (orderid == 1005) {
-                    cell.accessoryType = UITableViewCellAccessoryCheckmark;
-                } else {
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                } 
             }
                 break;
             default:
@@ -298,7 +288,7 @@ static int scroll_hight = 100;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    selectline = indexPath.row;
     switch (indexPath.row) {
         case 1:
         {
@@ -315,7 +305,7 @@ static int scroll_hight = 100;
         {
             if (orderid != 1002) {
             UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
-            alertid = 100;
+                 alertid = 100;
             [av1 show];
             [av1 release];
             }
@@ -395,7 +385,49 @@ static int scroll_hight = 100;
                 password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
                 [password setBackgroundColor:[UIColor whiteColor]];
                 password.secureTextEntry = YES;
-                alertid = 101;
+                switch (selectline) {
+                    case 1:
+                    {
+                        if (orderid ==0 ) {
+                            alertid = 102;
+                        }else {
+                            alertid = 101;
+                        }
+                        
+                    }
+                        break;
+                    case 2:
+                    {
+                        if (orderid ==0 ) {
+                            alertid = 102;
+                        }else {
+                            alertid = 101;
+                        }
+                    }
+                        break;
+                    case 3:
+                    {
+                        if (orderid ==0 ) {
+                            alertid = 102;
+                        }else {
+                            alertid = 101;
+                        }
+                    }
+                        break;
+                    case 5:
+                    {
+                        alertid = 102;
+                    }
+                        break;
+                    case 6:
+                    {
+                        alertid = 102;
+                    }
+                        break;
+                        
+                    default:
+                        break;
+                }
                 [myAlertView1 addSubview:password];
                 [myAlertView1 show];
                 [myAlertView1 release];
@@ -408,10 +440,68 @@ static int scroll_hight = 100;
                     [av1 release]; 
                 }
             }
-                break;   
+                break;
+            case 102:{
+                if ([password.text isEqualToString:@"1234"]){  
+                    int i;
+                    switch (selectline) {
+                        case 1:
+                        {
+                            i=1001;
+                        }
+                            break;
+                        case 2:
+                        {
+                            i=1002;
+                        }
+                            break;
+                        case 3:
+                        {
+                            i=1003;
+                        }
+                            break;
+                        case 5:
+                        {
+                            i=1004;
+                        }
+                            break;
+                        case 6:
+                        {
+                            i=1005;
+                        }
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    
+                    
+                    int result = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@addorder.xql?orderid=%d&userid=%@",websv,i,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
+                    if (result==1) {
+                        NSLog(@"ok %d",result);
+                        orderid = [[[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getorderid.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
+                        [self loadqqdata];
+                        [self.tableview reloadData];
+                    }
+                }
+            }
+                break;
+            case 103:
+            {
+                UIAlertView *myAlertView1 = [[UIAlertView alloc] initWithTitle:@"Please Enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+                password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+                [password setBackgroundColor:[UIColor whiteColor]];
+                password.secureTextEntry = YES;
+                alertid = 102;
+                [myAlertView1 addSubview:password];
+                [myAlertView1 show];
+                [myAlertView1 release];
+            }
+                break;
             default:
                 break;
         }
     }
 }
+
 @end

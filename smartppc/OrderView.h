@@ -23,6 +23,7 @@
 @property(nonatomic,retain) UITextField * password;
 @property int alertid;
 @property int orderid;
+@property int selectline;
 
 
 - (void)layoutScrollImages;
