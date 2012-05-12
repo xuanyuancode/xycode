@@ -105,13 +105,13 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     UIImageView *bgresultview = [[UIImageView alloc]initWithFrame:CGRectMake(20, 90, bgresult.size.width+340, bgresult.size.height)];
     bgresultview.image = bgresult;
     
-    [self.view addSubview:bgresultview];
-    [self.view addSubview:titleimageview];
+    [self.view addSubview:bgresultview];[bgresultview release];
+    [self.view addSubview:titleimageview];[titleimageview release];
     [self.view addSubview:searchButton];
     [self.view addSubview:dateButton];
     [self.view addSubview:toButton];
     [self.view addSubview:cityButton];
-    [self.view addSubview:fromLabel];
+    [self.view addSubview:fromLabel];[fromLabel release]; 
     [self.view addSubview:toLabel];
     [self.view addSubview:city];
     [self.view addSubview:dateLabel];

@@ -69,7 +69,7 @@
     static NSString *CellIdentifier = @"abc";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
     }
     cell.textLabel.text =[tocitylist objectAtIndex:indexPath.row]; 
     return cell;
