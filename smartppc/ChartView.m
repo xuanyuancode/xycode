@@ -115,7 +115,7 @@ static float yellow_B = 231.0/255;
     
     CGContextSetRGBFillColor (cn, 1, 1, 1, 1); 
     NSString * s3 = @"Bandwidth Management";
-    [s3 drawInRect:CGRectMake(40, 8, 400, title_hight) withFont:[UIFont systemFontOfSize:font + 7]];
+    [s3 drawInRect:CGRectMake(5, 8, 400, title_hight) withFont:[UIFont systemFontOfSize:font + 7]];
 }
 
 @end

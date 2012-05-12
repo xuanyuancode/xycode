@@ -47,24 +47,33 @@ static int title_hight = 40;
         title.backgroundColor = [UIColor colorWithRed:blue_R green:blue_G blue:blue_B alpha:0.9];
         title.text = @" Favorite Website";
         title.font = [UIFont systemFontOfSize:font + 7];
+        title.textColor = [UIColor whiteColor];
         
         [self addSubview:scrollview];
         [self addSubview:thetext];
         [self addSubview:title];
         
         int i;
+   
+        
         for (i = 1; i<=[webpages count]; i++)
         {
+            
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setImage:[UIImage imageNamed:[[webpages objectAtIndex:i-1]objectAtIndex:1]] forState:UIControlStateNormal];
+            
+            [button setBackgroundImage:[UIImage imageNamed:[[webpages objectAtIndex:i-1]objectAtIndex:1]] forState:UIControlStateNormal];
+            
+           // [button setImage:[UIImage imageNamed:[[webpages objectAtIndex:i-1]objectAtIndex:1]] forState:UIControlStateNormal];
             [button addTarget:nil action:@selector(topage:) forControlEvents:UIControlEventTouchDown];
             
             CGRect rect = button.frame;
-            rect.size.height = 70;
-            rect.size.width = 70;
+            rect.size.height = 80 ;
+            rect.size.width = 80;
             button.frame = rect;
             button.tag = i;	
             [scrollview addSubview:button];
+             
+            
         }
         
         [self layoutScrollImages];
@@ -85,7 +94,7 @@ static int title_hight = 40;
             CGRect frame = view.frame;
             frame.origin = CGPointMake(X, 0);
             view.frame = frame;
-            X += 90;
+            X += 120;
         }
     }
     [scrollview setContentSize:CGSizeMake(width, [scrollview bounds].size.height)];

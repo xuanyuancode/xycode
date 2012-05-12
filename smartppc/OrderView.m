@@ -69,7 +69,6 @@ static int scroll_hight = 100;
     return self;
 }
 
-
 - (void)drawRect:(CGRect)rect
 {
     id key1 = @"img";
@@ -87,6 +86,7 @@ static int scroll_hight = 100;
      list1 = [[NSArray alloc] initWithObjects:dict1,dict3,dict2,dict4,dict5,nil];
     
     scrollview =[[UIScrollView alloc] initWithFrame:CGRectMake((width-scroll_width)/2, hight-110, scroll_width, scroll_hight)]; 
+    
     scrollview.pagingEnabled=YES;  
     int i;
     for (i = 1; i <= [list1 count]; i++)
@@ -117,16 +117,14 @@ static int scroll_hight = 100;
         [aview addSubview:thelable1];
         [aview addSubview:thelable2];
         [scrollview addSubview:aview];
+        
     }
     [self layoutScrollImages];
     [self addSubview:scrollview];
-    
-    
+
     CGContextRef cn = UIGraphicsGetCurrentContext();
     CGContextSetRGBFillColor (cn, blue_R, blue_G, blue_B, 1);   
-    
     CGContextSetRGBStrokeColor(cn, 0.7, 0.7, 0.7, 1);
-    
     UIBezierPath * path1 = [UIBezierPath bezierPath];
     [path1 moveToPoint:CGPointMake(0,0)];
     [path1 addLineToPoint:CGPointMake(width,0)];
@@ -138,6 +136,7 @@ static int scroll_hight = 100;
     CGContextSetRGBFillColor (cn, 1, 1,1, 1);
     NSString * s1 = @"Data Package Management";
     [s1 drawInRect:CGRectMake(30, 10, width, 30) withFont:[UIFont systemFontOfSize:font+6]]; 
+    
 }
 
 - (void)layoutScrollImages
@@ -199,11 +198,9 @@ static int scroll_hight = 100;
        
         
         
-        
-    
     }
         
-    /*
+    
         id key1 = @"price";
         id key2 = @"volume";
         switch (indexPath.row) {
@@ -217,7 +214,8 @@ static int scroll_hight = 100;
             case 1:
             { 
                 NSDictionary * adict = [orderlist objectAtIndex:0];
-                         
+                cell.textLabel.text = [NSString stringWithFormat:@"%@$ package%@ MB/month", [adict objectForKey:key1],[adict objectForKey:key2]];
+                cell.textLabel.font = [UIFont systemFontOfSize:font + 3]; 
                 if (orderid == 1001) {
                     cell.accessoryType = UITableViewCellAccessoryCheckmark;
                 } else {
@@ -251,7 +249,7 @@ static int scroll_hight = 100;
                 break;
             case 4:
             {
-                cell.textLabel.text = @"Pick Up"; 
+                cell.textLabel.text = @"Top Up"; 
                 cell.textLabel.font = [UIFont systemFontOfSize:18];
             }
                 break;
@@ -283,7 +281,7 @@ static int scroll_hight = 100;
                 break;
         
     }
-     */
+     
         
         
     return cell;

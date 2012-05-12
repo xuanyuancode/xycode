@@ -29,7 +29,10 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+      
+        
+        
+        
     }
     return self;
 }
@@ -45,7 +48,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     mytable = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
     
         mytable.dataSource = self;
-    mytable.delegate = self;
+        mytable.delegate = self;
 
     
     [self.view addSubview:mytable];
@@ -100,14 +103,28 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     
         if (indexPath.row == 0) {
-            UILabel *backup = [[UILabel alloc]initWithFrame:CGRectMake(40, 15, 200, 30 )];
+            UIImage *backupimg = [UIImage imageNamed:@"bakcup.png"];
+            UIImageView *backupimgview = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, backupimg.size.width, backupimg.size.height)];
+            backupimgview.image = backupimg;
+            [cell.contentView addSubview:backupimgview];
+            UILabel *backup = [[UILabel alloc]initWithFrame:CGRectMake(80, 17, 200, 30 )];
             backup.text = @"Back up contacts";
             backup.backgroundColor = [UIColor clearColor];
             [cell.contentView addSubview:backup];
+            
+        
         
         }
         else {
-            UILabel *restore = [[UILabel alloc]initWithFrame:CGRectMake(40, 15, 200, 30 )];
+        
+            UIImage *restoreimg = [UIImage imageNamed:@"restore.png"];
+            UIImageView *restoreimgview = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, restoreimg.size.width, restoreimg.size.height)];
+            
+            restoreimgview.image = restoreimg;
+            
+            [cell.contentView addSubview:restoreimgview];
+            
+            UILabel *restore = [[UILabel alloc]initWithFrame:CGRectMake(80, 17, 200, 30 )];
             restore.text = @"Restore contacts";
             restore.backgroundColor =  [UIColor clearColor];
             

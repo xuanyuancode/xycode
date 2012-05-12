@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		012A5FC3155E09390094D8BC /* web2.png in Resources */ = {isa = PBXBuildFile; fileRef = 012A5FC2155E09390094D8BC /* web2.png */; };
+		012A5FC7155E123D0094D8BC /* bakcup.png in Resources */ = {isa = PBXBuildFile; fileRef = 012A5FC5155E123D0094D8BC /* bakcup.png */; };
+		012A5FC8155E123D0094D8BC /* restore.png in Resources */ = {isa = PBXBuildFile; fileRef = 012A5FC6155E123D0094D8BC /* restore.png */; };
+		012A5FCA155E12630094D8BC /* bt_backup.png in Resources */ = {isa = PBXBuildFile; fileRef = 012A5FC9155E12630094D8BC /* bt_backup.png */; };
 		1C1AD9131555FDF3005491CA /* disk.png in Resources */ = {isa = PBXBuildFile; fileRef = 1C1AD9121555FDEC005491CA /* disk.png */; };
 		1C1AD9171555FFCD005491CA /* backupSelect.m in Sources */ = {isa = PBXBuildFile; fileRef = 1C1AD9161555FFCC005491CA /* backupSelect.m */; };
 		1C1AD91915560201005491CA /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C1AD91815560201005491CA /* AddressBook.framework */; };
@@ -125,6 +128,9 @@
 
 /* Begin PBXFileReference section */
 		012A5FC2155E09390094D8BC /* web2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = web2.png; sourceTree = "<group>"; };
+		012A5FC5155E123D0094D8BC /* bakcup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bakcup.png; sourceTree = "<group>"; };
+		012A5FC6155E123D0094D8BC /* restore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = restore.png; sourceTree = "<group>"; };
+		012A5FC9155E12630094D8BC /* bt_backup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bt_backup.png; sourceTree = "<group>"; };
 		1C1AD9121555FDEC005491CA /* disk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = disk.png; sourceTree = "<group>"; };
 		1C1AD9151555FFCB005491CA /* backupSelect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = backupSelect.h; sourceTree = "<group>"; };
 		1C1AD9161555FFCC005491CA /* backupSelect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = backupSelect.m; sourceTree = "<group>"; };
@@ -452,6 +458,9 @@
 		1CD8A515152F18720005A894 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				012A5FC9155E12630094D8BC /* bt_backup.png */,
+				012A5FC5155E123D0094D8BC /* bakcup.png */,
+				012A5FC6155E123D0094D8BC /* restore.png */,
 				1C73F73B155CF7F0009652BE /* arrow_choosed.png */,
 				1C5669221557FBD8002CAC41 /* flight img */,
 				1C8491ED15568DF1009ED79C /* minus.png */,
@@ -623,6 +632,9 @@
 				1C66294D155BEB3100FCCCB0 /* movie2.png in Resources */,
 				1C73F73C155CF7F0009652BE /* arrow_choosed.png in Resources */,
 				012A5FC3155E09390094D8BC /* web2.png in Resources */,
+				012A5FC7155E123D0094D8BC /* bakcup.png in Resources */,
+				012A5FC8155E123D0094D8BC /* restore.png in Resources */,
+				012A5FCA155E12630094D8BC /* bt_backup.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

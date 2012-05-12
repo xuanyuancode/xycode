@@ -27,17 +27,21 @@ static float yellow_B = 231.0/255;
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
+
+        UIImage *backbg = [UIImage imageNamed:@"bt_backup.png"];
+
         image = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"disk.png"]];
         image.frame = CGRectMake(25, 65, 88, 80);
-        button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        button = [UIButton buttonWithType:UIButtonTypeCustom];
         button.frame = CGRectMake(135, 125, 190, 30);
         [button setTitle:@"Backup Now" forState:UIControlStateNormal];
         [button addTarget:nil action:@selector(backuppop:) forControlEvents:UIControlEventTouchDown];
+        [button setBackgroundImage:backbg forState:UIControlStateNormal];
         
         title = [[UILabel alloc]initWithFrame:CGRectMake(0,0, width, title_hight)];
         title.backgroundColor=[UIColor colorWithRed:blue_R green:blue_G blue:blue_B alpha:0.9];
-        title.text = @"   Cloud Backup";
-
+        title.text = @" Cloud Backup";
+        title.textColor = [UIColor whiteColor];
         [self addSubview:image];
         [self addSubview:button];
         [self addSubview:title];
