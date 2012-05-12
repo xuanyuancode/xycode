@@ -20,7 +20,6 @@
     UIAlertView *myalert;
 }
 
-
 @property (nonatomic,retain) UITableView *mytable;
 @property (nonatomic,retain) NSArray *content;
 @property (nonatomic,retain) UIActivityIndicatorView *indicator;

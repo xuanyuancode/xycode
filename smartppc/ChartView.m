@@ -97,8 +97,8 @@ static float yellow_B = 231.0/255;
     
     CGContextSetRGBFillColor (cn, 0, 0, 0, 1);
     CGContextSetRGBStrokeColor(cn, 0, 0, 0, 1);
-    
-    [s1 drawInRect:CGRectMake(img_x+10, img_y + img_hight + 5 , 150, 40) withFont:[UIFont systemFontOfSize:font+3]];
+
+    [s1 drawInRect:CGRectMake(img_x+200, img_y + img_hight + 5 , 150, 40) withFont:[UIFont systemFontOfSize:font+3]];
     [s2 drawInRect:CGRectMake(img_x + 180, img_y + img_hight + 5 , 200, 40) withFont:[UIFont systemFontOfSize:font+3]];
 }
 

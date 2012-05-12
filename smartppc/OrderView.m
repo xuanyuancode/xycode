@@ -7,7 +7,7 @@
 //
 
 #import "OrderView.h"
-#import "Cell1.h"
+
 
 @implementation OrderView
 
@@ -196,8 +196,14 @@ static int scroll_hight = 100;
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
-        }
+       
         
+        
+        
+    
+    }
+        
+    /*
         id key1 = @"price";
         id key2 = @"volume";
         switch (indexPath.row) {
@@ -277,6 +283,7 @@ static int scroll_hight = 100;
                 break;
         
     }
+     */
         
         
     return cell;
