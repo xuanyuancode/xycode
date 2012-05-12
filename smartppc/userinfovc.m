@@ -13,7 +13,7 @@
 @end
 
 @implementation userinfovc
-@synthesize list,names;
+@synthesize list,names,clearbt,password,alertid;
 
 static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xql/";
 
@@ -29,20 +29,8 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 
 - (void)viewDidLoad
 {
-    NSString * as = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getpersoninfo.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
-    list = [[NSMutableArray alloc]initWithArray:[as componentsSeparatedByString:@","]];
-    names = [[NSArray alloc]initWithObjects:@"name",@"access",@"location",@"devtype",@"devsz",@"age",@"gender",nil];
+    [self pass];
     
-    for (int i=0; i<[list count]; i++) {
-        [self showline:i];
-    }
-    
-    UIButton * b1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    b1.frame = CGRectMake(200, 450, 100, 30);
-    [b1 setTitle:@"ok" forState:UIControlStateNormal];
-    [b1 addTarget:self action:@selector(sendinfo) forControlEvents:UIControlEventTouchDown];
-    [self.view addSubview:b1];
-
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -106,8 +94,85 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     [req setHTTPMethod:@"POST"];   
     [req setHTTPBody:data];   
     NSURLResponse * response = nil;
-    return [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
+    return [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];    
+}
+
+- (void)clearorder
+{
+    UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"did clear" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"ok", nil];
+    alertid = 102;
+    [aout show];
+    [aout release];
+}
+
+- (void)pass
+{
+    UIAlertView *myAlertView1 = [[UIAlertView alloc] initWithTitle:@"Please Enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+    password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+    [password setBackgroundColor:[UIColor whiteColor]];
+    password.secureTextEntry = YES;
+    alertid = 101;
     
+    [myAlertView1 addSubview:password];
+    [myAlertView1 show];
+    [myAlertView1 release];
+}
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if (buttonIndex == 0) {
+        
+    }
+    
+    
+    if (buttonIndex == 1) {
+   
+            switch (alertid)
+            {
+                case 101:
+                {
+                     if ([password.text isEqualToString:@"1234"])
+                     {
+                         [self showall];
+                     }
+                }
+                    break;
+                case 102:
+                {
+                  [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@clear.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] ;  
+                }
+                    break;
+                default:
+                    break;
+            }
+            
+            alertid = 0;
+        }
+}
+
+- (void)showall
+{
+    NSString * as = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getpersoninfo.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
+    list = [[NSMutableArray alloc]initWithArray:[as componentsSeparatedByString:@","]];
+    names = [[NSArray alloc]initWithObjects:@"name",@"access",@"location",@"devtype",@"devsz",@"age",@"gender",nil];
+    
+    for (int i=0; i<[list count]; i++) {
+        [self showline:i];
+    }
+    
+    UIButton * b1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    b1.frame = CGRectMake(200, 450, 100, 30);
+    [b1 setTitle:@"ok" forState:UIControlStateNormal];
+    [b1 addTarget:self action:@selector(sendinfo) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:b1];
+    
+    clearbt = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    clearbt.frame = CGRectMake(400, 50, 180, 40);
+    [clearbt setTitle:@"clear order" forState:UIControlStateNormal];
+    [clearbt addTarget:self action:@selector(clearorder) forControlEvents:UIControlEventTouchDown];
+    [self.view addSubview:clearbt];
+
 }
 
 @end
