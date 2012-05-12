@@ -374,67 +374,71 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     bool didSave;
     CFErrorRef error = NULL;
     
-    //先取现有电话号码
-    NSMutableArray *arrayfromlocal=[self backup];
-    for(int j = 0; j < [arrayfromlocal count]; j++)
-    {
+ 
     for(int i = 0; i < [list count]; i++)
     {
-        // NSDictionary *thedict = [[NSDictionary alloc]initWithObjectsAndKeys:tel,key1,fname,key2,lname,key3,city,key4,nil];
-        NSDictionary *dict=( NSDictionary *)[arrayfromlocal objectAtIndex:j];
         
-       if (![(NSString *)[dict valueForKey:tel]isEqualToString:[[list objectAtIndex:i] objectForKey:tel]]) {
+        NSString * fnamebbb = [[list objectAtIndex:i] objectForKey:fname];
+        NSString * lnamebbb = [[list objectAtIndex:i] objectForKey:lname];
+        NSString * thename = [NSString stringWithFormat:@"%@ %@",lnamebbb,fnamebbb];
+        
+     
+        CFArrayRef cfa= ABAddressBookCopyPeopleWithName(addressBook,(CFStringRef)thename);
+        if (cfa) {
+            if (CFArrayGetCount(cfa)==0) {
+                ABRecordRef record = ABPersonCreate();
+                ABRecordSetValue(record, kABPersonFirstNameProperty,(CFStringRef)[[list objectAtIndex:i] objectForKey:fname], &error);
+                ABRecordSetValue(record, kABPersonLastNameProperty,(CFStringRef)[[list objectAtIndex:i] objectForKey:lname], &error);
+                
+                ABMutableMultiValueRef address = ABMultiValueCreateMutable(kABDictionaryPropertyType);
+                
+                CFStringRef keys[0];
+                CFStringRef values[0];
+                keys[0] = kABPersonAddressCityKey;
+                values[0] = (CFStringRef)[[list objectAtIndex:i] objectForKey:city];
+                
+                CFDictionaryRef aDict = CFDictionaryCreate(
+                                                           kCFAllocatorDefault,
+                                                           (void *)keys,
+                                                           (void *)values,
+                                                           1,
+                                                           &kCFCopyStringDictionaryKeyCallBacks,
+                                                           &kCFTypeDictionaryValueCallBacks
+                                                           );
+                
+                ABMultiValueIdentifier identifier;
+                bool didAdd;
+                didAdd = ABMultiValueAddValueAndLabel(address, aDict, kABPersonAddressCityKey, &identifier);
+                if (!didAdd) {NSLog(@"multiv error");}
+                CFRelease(aDict);
+                ABRecordSetValue(record, kABPersonAddressProperty,address,&error);
+                
+                
+                
+                ABMutableMultiValueRef multi = ABMultiValueCreateMutable(kABMultiStringPropertyType);
+                ABMultiValueIdentifier multivalueIdentifier;
+                bool didAdd2, didSet2;
+                
+                didAdd2 = ABMultiValueAddValueAndLabel(multi, (CFStringRef)[[list objectAtIndex:i] objectForKey:tel],
+                                                       kABPersonPhoneMobileLabel, &multivalueIdentifier);
+                if (!didAdd2) {NSLog(@"add error");}
+                
+                
+                didSet2 = ABRecordSetValue(record, kABPersonPhoneProperty, multi, &error);
+                if (!didSet2)
+                    CFRelease(multi);
+                
+                
+                
+                ABAddressBookAddRecord(addressBook, record, &error);
+                
+                CFRelease(address);
+
+            }
             
+        }
+  
         
-        ABRecordRef record = ABPersonCreate();
-        ABRecordSetValue(record, kABPersonFirstNameProperty,(CFStringRef)[[list objectAtIndex:i] objectForKey:fname], &error);
-        ABRecordSetValue(record, kABPersonLastNameProperty,(CFStringRef)[[list objectAtIndex:i] objectForKey:lname], &error);
-        
-        ABMutableMultiValueRef address = ABMultiValueCreateMutable(kABDictionaryPropertyType);
-        
-        CFStringRef keys[0];
-        CFStringRef values[0];
-        keys[0] = kABPersonAddressCityKey;
-        values[0] = (CFStringRef)[[list objectAtIndex:i] objectForKey:city];
-        
-        CFDictionaryRef aDict = CFDictionaryCreate(
-                                                   kCFAllocatorDefault,
-                                                   (void *)keys,
-                                                   (void *)values,
-                                                   1,
-                                                   &kCFCopyStringDictionaryKeyCallBacks,
-                                                   &kCFTypeDictionaryValueCallBacks
-                                                   );
-        
-        ABMultiValueIdentifier identifier;
-        bool didAdd;
-        didAdd = ABMultiValueAddValueAndLabel(address, aDict, kABPersonAddressCityKey, &identifier);
-        if (!didAdd) {NSLog(@"multiv error");}
-        CFRelease(aDict);
-        ABRecordSetValue(record, kABPersonAddressProperty,address,&error);
-        
-
-        
-        ABMutableMultiValueRef multi = ABMultiValueCreateMutable(kABMultiStringPropertyType);
-        ABMultiValueIdentifier multivalueIdentifier;
-        bool didAdd2, didSet2;
-        
-        didAdd2 = ABMultiValueAddValueAndLabel(multi, (CFStringRef)[[list objectAtIndex:i] objectForKey:tel],
-                                              kABPersonPhoneMobileLabel, &multivalueIdentifier);
-        if (!didAdd2) {NSLog(@"add error");}
-        
-        
-        didSet2 = ABRecordSetValue(record, kABPersonPhoneProperty, multi, &error);
-        if (!didSet2)
-        CFRelease(multi);
-        
-
-
-        ABAddressBookAddRecord(addressBook, record, &error);
-        
-        CFRelease(address);
-       }
-    }
     }
     
     if (ABAddressBookHasUnsavedChanges(addressBook)) {
