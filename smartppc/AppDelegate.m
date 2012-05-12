@@ -35,7 +35,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     
    // self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CenterVC alloc] init]];
    //--
-    CenterVC *vc=[[CenterVC alloc] init];
+    CenterVC *vc=[[CenterVC alloc] init]; 
     self.window.rootViewController = [[[UINavigationController alloc] initWithRootViewController:vc]autorelease]; 
     [vc release];
     //--
