@@ -37,8 +37,9 @@ static int scroll_hight = 100;
         NSURL * aurl = [NSURL URLWithString:[NSString stringWithFormat:@"%@orderitem.xql",websv]];
         orderlist = [[NSMutableArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:aurl]mutabilityOption:0 format:NULL errorDescription:Nil]];
         NSLog(@"%@",orderlist.description);
-        orderid = [[[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getorderid.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
-        
+        NSString *oid=[[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getorderid.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
+        orderid = [oid intValue];
+        [oid release];
         
         tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 50, width, 260) style:UITableViewStylePlain];
         tableview.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
@@ -197,7 +198,7 @@ static int scroll_hight = 100;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
        
         
         
@@ -296,7 +297,9 @@ static int scroll_hight = 100;
         case 1:
         {
             if (orderid != 1001) {
-            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
+                NSString *message=[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
+                [message release];
             alertid = 100;
             [av1 show];
             [av1 release];
@@ -307,8 +310,10 @@ static int scroll_hight = 100;
         case 2:
         {
             if (orderid != 1002) {
-            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
-                 alertid = 100;
+                NSString *message=[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
+                [message release]; 
+                alertid = 100;
             [av1 show];
             [av1 release];
             }
@@ -317,8 +322,10 @@ static int scroll_hight = 100;
         case 3:
         {
             if (orderid != 1003) {
-            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
-            alertid = 100;
+                NSString *message=[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
+                [message release];
+                alertid = 100;
             [av1 show];
             [av1 release];
             }
@@ -327,8 +334,10 @@ static int scroll_hight = 100;
         case 5:
         {
             if (orderid != 0) {
-            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
-            alertid = 100;
+                NSString *message=[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
+                [message release];
+                alertid = 100;
             [av1 show];
             [av1 release];
             }else {
@@ -341,7 +350,9 @@ static int scroll_hight = 100;
         case 6:
         {
             if (orderid != 0) {
-                UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
+                NSString *message=[[NSString alloc]initWithFormat:@"You order %@",[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+                UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:message delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Send",nil];
+                [message release];
                 alertid = 100;
                 [av1 show];
                 [av1 release];
@@ -382,7 +393,7 @@ static int scroll_hight = 100;
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }
@@ -496,7 +507,9 @@ static int scroll_hight = 100;
                     int result = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@addorder.xql?orderid=%d&userid=%@",websv,i,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
                     if (result==1) {
                         NSLog(@"ok %d",result);
-                        orderid = [[[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getorderid.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
+                        NSString *p=[[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getorderid.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
+                        orderid = [p intValue];
+                        [p release];
                         [self loadqqdata];
                         [self.tableview reloadData];
                     }

@@ -132,10 +132,13 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 	
 	
     CGImageRef imageMasked = CGBitmapContextCreateImage(context);
+    UIImage *imga=[UIImage imageWithCGImage:imageMasked];
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
 	
-    return [UIImage imageWithCGImage:imageMasked];
+    
+    CGImageRelease(imageMasked); 
+    return imga;
 }
 
 - (void)loadtheview
@@ -150,14 +153,16 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     savingLabel.textColor =  [UIColor grayColor];
     
     [self.navigationController.navigationBar addSubview:savingLabel];
-    
+    [savingLabel release];
+     //NSLog(@"1aa %d",[usernameLabel retainCount] );
     usernameLabel = [[UILabel alloc]initWithFrame:CGRectMake(10, 5 ,300, 30)];
     usernameLabel.text = [NSString stringWithFormat:@"%@ ,Welcome",getUsername];
     usernameLabel.backgroundColor = [UIColor clearColor];
     usernameLabel.textColor =  [UIColor grayColor];
-    
+    //NSLog(@"2aa %d",[usernameLabel retainCount] );
     [self.navigationController.navigationBar addSubview:usernameLabel];
-    
+    [usernameLabel release];
+    //NSLog(@"3aa %d",[usernameLabel retainCount] );
     totalSaving = [[UILabel alloc] initWithFrame:CGRectMake(905, 7, 100, 30)];
     totalSaving.backgroundColor = [UIColor clearColor];
     [totalSaving setFont:[UIFont systemFontOfSize:15]];
@@ -166,7 +171,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     UIBarButtonItem *backbar = [[UIBarButtonItem alloc]initWithTitle:@"back" style:UIBarButtonItemStylePlain target:nil action:nil];
     
     self.navigationItem.backBarButtonItem = backbar;
-    
+    [backbar release];
     [self loadqqdata];
     
     chartview = [[ChartView alloc] initWithFrame:CGRectMake(420,250,580,190)];
@@ -204,28 +209,42 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     [self.view addSubview:b1];
 }
 
-- (IBAction)login:(id)sender
+//- (IBAction)login:(id)sender 
+-(void)login:(NSString*)n1 andString2:(NSString*)n2
 {
+    
     id key1 = @"user";
     id key2 = @"pw";
-    
+    number=n1;
+    pw=n2;
+    //NSLog(@"---%@,%@,%@,%@",number,key1,pw,key2);
     NSDictionary * thedict = [NSDictionary dictionaryWithObjectsAndKeys:number,key1,pw,key2,nil];
     
     NSData *thedata = [NSPropertyListSerialization dataFromPropertyList:thedict format:NSPropertyListXMLFormat_v1_0 errorDescription:nil];
     
     NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@login.xql",websv]]]; 
+   // NSLog(@"%@",[NSString stringWithFormat:@"%@login.xql",websv]);
     
     NSString *contentType = [NSString stringWithFormat:@"text/xml"];
     [req addValue:contentType forHTTPHeaderField: @"Content-Type"];  
     [req setHTTPMethod:@"POST"];   
     [req setHTTPBody:thedata];   
-    
+    int result = -1;
     NSURLResponse * response = nil;
     NSData *adata = [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
     NSString *gg=[[NSString alloc] initWithData:adata encoding:NSUTF8StringEncoding];
-    int result = [gg intValue];
+    result = [gg intValue];
     [gg release];
+    // NSLog(@"login!!!!! %d",result);
+     if (result==0)
+     {
+         UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"warning" message:@"Your password is incorrect!" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil];
+         [av1 show];
+         
+         [av1 release];
+     }
     if (result==1) {
+         NSLog(@"login pass!!!!!");
         pass = YES;
         NSFileManager *fm = [[NSFileManager alloc]init];
         NSString * rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
@@ -239,6 +258,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 - (IBAction)setnumber:(id)sender
 {
     UITextField * thet = (UITextField *)sender;
+    NSLog(@"aa %@",thet.text);
     number = thet.text;
 }
 
@@ -421,5 +441,21 @@ if (result==1){
 }
 
 
+
+-(void)dealloc {
+    
+    [chartview release];[orderview release];[vedioview release];
+    [cloudview release];[websiteview release];[infoview release];//[number release];
+   // [pass release];
+    [usernameLabel release];
+    [totalSaving release];
+    [qqdata release];//[pw release];
+    [alertmsg release];
+    //timer,
+    [backupObj release];[backupPicker release];//[speed release];
+    [package release];
+    [super dealloc];
+    
+}
 
 @end

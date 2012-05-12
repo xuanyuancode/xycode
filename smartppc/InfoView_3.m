@@ -35,15 +35,18 @@ static float yellow_B = 231.0/255;
         t1 = [[UITextField alloc]initWithFrame:CGRectMake(200, 110, 150, 30)];
         t1.borderStyle = UITextBorderStyleRoundedRect;
         [t1 addTarget:nil action:@selector(setnumber:) forControlEvents:UIControlEventEditingDidEnd];
+        t1.tag=1;
         
         t2 = [[UITextField alloc]initWithFrame:CGRectMake(200, 150, 150, 30)];
         t2.borderStyle = UITextBorderStyleRoundedRect;
          [t2 addTarget:nil action:@selector(setpw:) forControlEvents:UIControlEventEditingDidEnd];
+        t2.tag=2;
         
         b1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
         [b1 setTitle:@"Login" forState:UIControlStateNormal];
         b1.frame = CGRectMake(260, 220, 100,40);
-        [b1 addTarget:nil action:@selector(login:) forControlEvents:UIControlEventTouchDown];
+        [b1 addTarget:self action:@selector(prelogin) forControlEvents:UIControlEventTouchUpInside];
+        b1.tag=3;
         
         imgv = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"n.png"]];
         imgv.frame = CGRectMake(0, 0, 552, 60);
@@ -57,7 +60,10 @@ static float yellow_B = 231.0/255;
     }
     return self;
 }
-
+-(void)prelogin{
+    
+    [self.nextResponder.nextResponder.nextResponder performSelector:@selector(login:andString2:) withObject:t1.text withObject:t2.text];
+}
 /*
 - (void)drawRect:(CGRect)rect
 {

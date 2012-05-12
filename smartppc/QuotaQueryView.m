@@ -153,7 +153,7 @@ static float yellow_B = 231.0/255;
      NSString * s6 = [NSString stringWithFormat:@"Actual Volume: %dM",actualV];
      NSString * s7 = [NSString stringWithFormat:@"Charge Volume: %dM",chargeV];
      NSString * s8 = [NSString stringWithFormat:@"Non-package Volume %dM",NpackageV];
-     NSString * s10 = [NSString stringWithFormat:@"%dMB",NpackageV];
+    NSString * s10 ;//= [NSString stringWithFormat:@"%dMB",NpackageV];
      NSString * s11 = @"The Total Saving";
     
   NSString *totalSaving = [NSString stringWithFormat:@"%0.0fKb",[[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=nopackageV&userid=%@&volume=0",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] floatValue]*1024.0];

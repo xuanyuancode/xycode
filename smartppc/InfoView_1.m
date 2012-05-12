@@ -27,7 +27,7 @@
         
         
         b1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        [b1 setTitle:@"Calcel" forState:UIControlStateNormal];
+        [b1 setTitle:@"Cancel" forState:UIControlStateNormal];
         b1.frame = CGRectMake(self.frame.size.width * 0.2, self.frame.size.height * 0.9, self.frame.size.width * 0.15 , self.frame.size.height * 0.08);
         
         

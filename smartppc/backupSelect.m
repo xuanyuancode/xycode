@@ -333,6 +333,15 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         
         NSDictionary *thedict = [[NSDictionary alloc]initWithObjectsAndKeys:tel,key1,fname,key2,lname,key3,city,key4,nil];
         [list addObject:thedict];
+        [tel release];
+        [fname release];
+        [lname release];
+        //[city release];
+        [thedict release];
+        [key1 release];
+        [key2 release];
+        [key3 release];
+        [key4 release];
     }
     
     CFRelease(results);
@@ -344,13 +353,14 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 {
     NSLog(@"savemem");
     
-    NSData * d1 = [self httppost:[NSString stringWithFormat:@"setmem.xql?userid=%@",[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:[self backup] format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
+    //NSData * d1 =
+    [self httppost:[NSString stringWithFormat:@"setmem.xql?userid=%@",[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:[self backup] format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
     
     /*
      NSData * adata = [NSPropertyListSerialization dataFromPropertyList:[self backup] format:NSPropertyListXMLFormat_v1_0 errorDescription:nil];
      */
     
-    NSLog(@"%@",[[NSString alloc] initWithData:d1 encoding:NSUTF8StringEncoding]);
+    //NSLog(@"%@",[[NSString alloc] initWithData:d1 encoding:NSUTF8StringEncoding]);
     /*
     UIAlertView * aout = [[UIAlertView alloc] initWithTitle:@"infomation" message:@"backup success !" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
     [aout show];
@@ -458,7 +468,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     {
         NSFileManager *fm = [[NSFileManager alloc]init];
         NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-        
+        [fm release];
         id key1 = @"user";
         return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
     }

@@ -50,7 +50,8 @@
 - (IBAction)play:(id)sender;
 -(UIImage *)addText:(UIImage *)img text:(NSString *)text1;
 - (void)loadtheview;
-- (IBAction)login:(id)sender;
+//- (IBAction)login:(id)sender;
+-(void)login:(NSString*)n1 andString2:(NSString*)n2;
 - (IBAction)setpw:(id)sender;
 - (IBAction)setnumber:(id)sender;
 - (void)loginsim;

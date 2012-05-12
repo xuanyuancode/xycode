@@ -203,6 +203,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         self.calendarObj = [[calendarPick alloc] init];
         self.popover3 = [[UIPopoverController alloc] initWithContentViewController:calendarObj]; 
         [self.popover3 setPopoverContentSize:CGSizeMake(300.0f, 230.0f)];
+        //[self.popover release];
     }
     
     [self.popover3 presentPopoverFromRect:CGRectMake(390,170,1,1) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
@@ -218,6 +219,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         self.cityto = [[cityTolist alloc] init];
         self.popover2 = [[UIPopoverController alloc] initWithContentViewController:cityto]; 
         [self.popover2 setPopoverContentSize:CGSizeMake(250.0f, 220.0f)];
+        //[self.popover2 release];
     }
     [self.popover2 presentPopoverFromRect:CGRectMake(330,18 , 300, 200) inView:self.view permittedArrowDirections:UIPopoverArrowDirectionLeft animated:YES];
 }
@@ -263,7 +265,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }

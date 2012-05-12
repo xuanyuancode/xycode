@@ -133,7 +133,7 @@ static float blue_B = 241.0/255;
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier]autorelease];
     }
     NSDictionary * thedict = [list objectAtIndex:indexPath.row];
     
@@ -278,6 +278,7 @@ static float blue_B = 241.0/255;
 
     [thedict setObject:t.text forKey:tel];
     [list replaceObjectAtIndex:t.tag - 1 withObject:thedict];
+    [thedict release];
     [tableview reloadData];
     /*
     [self httppost:[NSString stringWithFormat:@"%@pcupdata.xql?userid=%@",websv,[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:list format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
@@ -329,6 +330,7 @@ static float blue_B = 241.0/255;
     }
     
     [list replaceObjectAtIndex:rownum withObject:thedict];
+    [thedict release];
     [tableview reloadData];
     /*
     [self httppost:[NSString stringWithFormat:@"%@pcupdata.xql?userid=%@",websv,[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:list format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
@@ -349,6 +351,7 @@ static float blue_B = 241.0/255;
     NSLog(@"%@",list.description);
     list = [[NSMutableArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getplist.xql?userid=%@&data=pc",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]];  
     [list replaceObjectAtIndex:bt.tag-1 withObject:thedict];
+    [thedict release];
     state = bt.tag;
     [self sendinfo];
     }
