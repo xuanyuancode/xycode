@@ -45,7 +45,11 @@ static float blue_B = 241.0/255;
     
     lable1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, width, 40)];
     lable1.text = @"  TIP";
+    //lable1.textColor = [UIColor colorWithWhite];
     lable1.font = [UIFont systemFontOfSize:font+5];
+    lable1.textColor = [UIColor whiteColor];
+    
+    
     lable1.backgroundColor = [UIColor colorWithRed:blue_R green:blue_G blue:blue_B alpha:0.7];
     lable2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, width, 40)];
     lable2.font = [UIFont systemFontOfSize:font+3];
@@ -55,6 +59,7 @@ static float blue_B = 241.0/255;
     lable3.text = @"  Parental Control";
     lable3.font = [UIFont systemFontOfSize:font+6];
     lable3.backgroundColor = [UIColor colorWithRed:blue_R green:blue_G blue:blue_B alpha:0.7];
+    lable3.textColor = [UIColor whiteColor];
     [self addSubview:lable1];
     [self addSubview:lable2];
     [self addSubview:lable3];
@@ -74,7 +79,7 @@ static float blue_B = 241.0/255;
     
     b1 = [UIButton buttonWithType:UIButtonTypeRoundedRect];
     b1.frame = CGRectMake(500, 40, 110, 35);
-    [b1 addTarget:self action:@selector(buy:) forControlEvents:UIControlEventTouchDown];
+    [b1 addTarget:self action:@selector(buy:) forControlEvents:UIControlEventTouchUpInside];
     
     [aview addSubview:alable1];
     [aview addSubview:alable2];
@@ -88,7 +93,8 @@ static float blue_B = 241.0/255;
     tableview.delegate = self;
     tableview.dataSource = self;
     [tableview setBounces:NO];
-    
+    on = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pcison.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
+
     if (on == 0) {
         [b1 setTitle:@"buy" forState:UIControlStateNormal];
         tableview.hidden = YES;
@@ -213,11 +219,19 @@ static float blue_B = 241.0/255;
 
 - (IBAction)buy:(id)sender
 {
-    [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pconoff.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
+    
     
     on = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pcison.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
     
     if (on == 0) {
+
+        [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pconoff.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
+        [b1 setTitle:@"cancel" forState:UIControlStateNormal];
+        tableview.hidden = NO;
+        [tableview reloadData];
+        
+    }else {
+        
         UIAlertView *myAlertView1 = [[UIAlertView alloc] initWithTitle:@"Please Enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
         password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
         [password setBackgroundColor:[UIColor whiteColor]];
@@ -227,17 +241,15 @@ static float blue_B = 241.0/255;
         [myAlertView1 addSubview:password];
         [myAlertView1 show];
         [myAlertView1 release];
-        
-    }else {
-        [b1 setTitle:@"cancel" forState:UIControlStateNormal];
-        tableview.hidden = NO;
-   
     
     }
-    /*
+    
+    
+    
+    
     list = [[NSMutableArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getplist.xql?userid=%@&data=pc",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]]; 
-    [self.tableview reloadData];
-     */
+    //[self.tableview reloadData];
+     
 }
 
 - (NSString*)getusernumber
@@ -382,6 +394,7 @@ static float blue_B = 241.0/255;
                     break;
                 case 102:
                 {
+                    [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pconoff.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
                     [b1 setTitle:@"buy" forState:UIControlStateNormal];
                     tableview.hidden = YES;
                     UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"canceled" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
@@ -389,7 +402,6 @@ static float blue_B = 241.0/255;
                     [aout release];
                 }
                     break;
-                    
                 default:
                     break;
            }

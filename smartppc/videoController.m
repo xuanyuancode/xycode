@@ -304,9 +304,9 @@ myIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIA
     
   if ([[[NSString alloc]initWithString:[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getxdporder.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil]]intValue] > 0)
   {
-    [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=nopackageV&userid=%@&volume=%f",websv,[self getusernumber],(timelong*speed/1024/8.0)]] encoding:NSUTF8StringEncoding error:nil];
+    [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=nopackageV&userid=%@&volume=%f",websv,[self getusernumber],(timelong*speed/1024.0/8.0)]] encoding:NSUTF8StringEncoding error:nil];
   }else {
-      [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=chargeV&userid=%@&volume=%f",websv,[self getusernumber],(timelong*speed/1024/8.0)]] encoding:NSUTF8StringEncoding error:nil];
+      [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=chargeV&userid=%@&volume=%f",websv,[self getusernumber],(timelong*speed/1024.0/8.0)]] encoding:NSUTF8StringEncoding error:nil];
   }
     
     

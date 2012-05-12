@@ -9,6 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ParentalControlView : UIView <UITableViewDelegate,UITableViewDataSource,UIAlertViewDelegate>
+{
+    UILabel *lable1,*lable3;
+}
 
 @property(nonatomic,retain) UITableView * tableview;
 @property(nonatomic,retain) NSMutableArray * list;
