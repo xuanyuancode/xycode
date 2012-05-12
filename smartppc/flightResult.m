@@ -32,11 +32,12 @@
 	// Do any additional setup after loading the view.
     //[self.view setBackgroundColor:[UIColor blueColor]];
     self.title = @"Flight booked";
-    UIImage *titlebg = [UIImage imageNamed:@"tittle_bg.png"];
+    /*UIImage *titlebg = [UIImage imageNamed:@"tittle_bg.png"];
     UIImageView *titleimageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, titlebg.size.width+70, titlebg.size.height)];
     titleimageview.image = titlebg;
-
+*/
     [self.view addSubview:testLabel];
+    //[testLabel release];
     
     UIImage *bgresult = [UIImage imageNamed:@"framebig.png"];
     UIImageView *bgresultview = [[UIImageView alloc]initWithFrame:CGRectMake(50, 90, bgresult.size.width, bgresult.size.height)];
@@ -71,7 +72,7 @@
     
     bgfriendview2.image = bgfriend2;
     [self.view addSubview:bgfriendview2];
-    
+    [bgfriendview2 release];
     UILabel *discount = [[UILabel alloc]initWithFrame:CGRectMake(180, 480, 250, 40)];
     discount.text = @"Shopping Discount";
     discount.backgroundColor = [UIColor clearColor];
@@ -79,6 +80,7 @@
     discount.textColor = [UIColor redColor];
     
     [self.view addSubview:discount];
+    [discount release];
     
     UILabel *filmdiscount = [[UILabel alloc]initWithFrame:CGRectMake(650, 480, 250, 40)];
     filmdiscount.text = @"Moive Ticket Discount";
@@ -87,6 +89,7 @@
     filmdiscount.textColor = [UIColor redColor];
     
     [self.view addSubview:filmdiscount];
+    [filmdiscount release];
     
     
     
@@ -96,17 +99,18 @@
     callyou.font = [UIFont systemFontOfSize:20.0];
     
     
-    
+    /*
     UILabel *youlike = [[UILabel alloc]initWithFrame:CGRectMake(40, 300, 350, 40)];
     youlike.text = @"You may like NBA";
     youlike.backgroundColor = [UIColor clearColor];
-    
+    */
    
     UIImage *smallframe = [UIImage imageNamed:@"framesmall.png"];
     UIImageView *smallframeview = [[UIImageView alloc]initWithFrame:CGRectMake(640, 90, smallframe.size.width, smallframe.size.height)];
     smallframeview.image = smallframe;
     
     [self.view addSubview:smallframeview];
+    [smallframeview release];
     
     UIImage *weather = [UIImage imageNamed:@"bg_weather.png"];
     UIImageView *weaterhview = [[UIImageView alloc]initWithFrame:CGRectMake(652, 105, weather.size.width -30, weather.size.height-30)];
@@ -132,23 +136,36 @@
     temperature.font = [UIFont systemFontOfSize:15];
     
     [self.view addSubview:weaterhview];
+    [weaterhview release];
     [self.view addSubview:bgfriendview];
+    [bgfriendview release];
   // [self.view addSubview:titleimageview];
     [self.view addSubview:bgresultview];
+    [bgresultview release];
     [self.view addSubview:noticeview];
+    [noticeview release];
     [self.view addSubview:depart];
+    [depart release];
     [self.view addSubview:arrive];
+    [arrive release];
     [self.view addSubview:departtimelabel44];
+    [departtimelabel44 release];
     [self.view addSubview:callyou];
+    [callyou release];
     [self.view addSubview:weatherpngview];
+    [weatherpngview release];
     [self.view addSubview:umbrellaview];
+    [umbrellaview release];
     [self.view addSubview:theWeather];
+    [theWeather release];
     [self.view addSubview:temperature];
+    [temperature release];
    // [self.view addSubview:youlike];
     departtimelabel1 = [[UILabel alloc]initWithFrame:CGRectMake(320, 110, 200, 30)];
     departtimelabel1.backgroundColor = [UIColor clearColor];
     
     [self.view addSubview:departtimelabel1];
+   // [departtimelabel1 release];
     
     
     departtimelabel2 = [[UILabel alloc]initWithFrame:CGRectMake(320, 150, 200, 30)];
