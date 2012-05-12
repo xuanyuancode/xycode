@@ -3,7 +3,7 @@
 //  smartppc
 //
 //  Created by iMac02 on 12-5-3.
-//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2012年 __MyCompanyName__. All rights reserved. testing
 //
 
 #import <UIKit/UIKit.h>
