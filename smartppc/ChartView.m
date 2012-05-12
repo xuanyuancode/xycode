@@ -40,7 +40,7 @@ static float yellow_B = 231.0/255;
     self = [super initWithFrame:frame];
     if (self) {
         button = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-        button.frame = CGRectMake(430, 140, 110, 35);
+        button.frame = CGRectMake(450, 100, 110, 35);
         //[button setTitle:@"See Details" forState:UIControlStateNormal];
         button.tag = 1005;
         [button addTarget:nil action:@selector(tomenu:) forControlEvents:UIControlEventTouchDown];
@@ -56,10 +56,10 @@ static float yellow_B = 231.0/255;
 
 - (void)drawRect:(CGRect)rect
 {
-      UILabel *alable = [[UILabel alloc]initWithFrame:CGRectMake(370,60,190,60)];
+      UILabel *alable = [[UILabel alloc]initWithFrame:CGRectMake(300,50,190,60)];
     alable.numberOfLines = 0;
       alable.text = package;
-      alable.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
+      alable.backgroundColor = [UIColor clearColor];
       CGContextRef cn = UIGraphicsGetCurrentContext();
     [self addSubview:alable];
       [self drawfirst:cn];
@@ -98,8 +98,8 @@ static float yellow_B = 231.0/255;
     CGContextSetRGBFillColor (cn, 0, 0, 0, 1);
     CGContextSetRGBStrokeColor(cn, 0, 0, 0, 1);
 
-    [s1 drawInRect:CGRectMake(img_x+200, img_y + img_hight + 5 , 150, 40) withFont:[UIFont systemFontOfSize:font+3]];
-    [s2 drawInRect:CGRectMake(img_x + 180, img_y + img_hight + 5 , 200, 40) withFont:[UIFont systemFontOfSize:font+3]];
+    [s1 drawInRect:CGRectMake(img_x+245, img_y + img_hight -40 , 150, 40) withFont:[UIFont systemFontOfSize:font+3]];
+    [s2 drawInRect:CGRectMake(img_x + 245, img_y + img_hight -10 , 200, 40) withFont:[UIFont systemFontOfSize:font+3]];
 }
 
 -(void) drawfirst:(CGContextRef)cn

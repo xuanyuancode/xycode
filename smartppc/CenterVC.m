@@ -167,7 +167,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     chartview.total = [[qqdata objectForKey:key2] floatValue];
     chartview.used = [[qqdata objectForKey:key1] floatValue];
  
-    chartview.package = [NSString stringWithFormat:@"package:%@MB/month", package];
+    chartview.package = [NSString stringWithFormat:@"Package:%@MB/month", package];
     if (i==0) {
         chartview.package = @"No package";
     }    
@@ -313,9 +313,8 @@ if (result==1){
     self.chartview.used = [[qqdata objectForKey:key1] floatValue];
     self.chartview.total = [[qqdata objectForKey:key2] floatValue];
     
-    self.chartview.package = [NSString stringWithFormat:@"package:%@MB/month", package];
+    self.chartview.package = [NSString stringWithFormat:@"Package:%@MB/month", package];
 
-    
     totalSaving.text = [NSString stringWithFormat:@"%0.0fKb",[[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=nopackageV&userid=%@&volume=0",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] floatValue]*1024.0];
     
      speed = ([self truevolume] - oldbyte)/1024/timelong;

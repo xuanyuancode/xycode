@@ -37,7 +37,7 @@ static int title_hight = 40;
         
         self.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
         scrollview=[[UIScrollView alloc]initWithFrame:CGRectMake(10, 70, width-20, 70)];
-        scrollview.pagingEnabled=YES;  
+        scrollview.pagingEnabled=YES;
         
         thetext=[[UILabel alloc]initWithFrame:CGRectMake(20, title_hight, width-40, 25)];
         thetext.backgroundColor = [UIColor colorWithRed:yellow_R green:yellow_G blue:yellow_B alpha:1];
@@ -56,10 +56,8 @@ static int title_hight = 40;
         for (i = 1; i<=[webpages count]; i++)
         {
             UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-            
             [button setImage:[UIImage imageNamed:[[webpages objectAtIndex:i-1]objectAtIndex:1]] forState:UIControlStateNormal];
             [button addTarget:nil action:@selector(topage:) forControlEvents:UIControlEventTouchDown];
-            
             
             CGRect rect = button.frame;
             rect.size.height = 70;
