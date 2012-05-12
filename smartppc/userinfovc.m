@@ -57,13 +57,15 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     [t1 addTarget:self action:@selector(change:) forControlEvents:UIControlEventEditingDidEnd];
     [self.view  addSubview: l1];
     [self.view  addSubview: t1];
+    [t1 release];
+    [l1 release];
 }
 
 - (NSString*)getusernumber
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }
@@ -77,6 +79,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     NSString * as = [[NSString alloc]initWithData:ad encoding:NSUTF8StringEncoding];
     
     NSLog(@"%@ %@",info.description,as);
+    [as release];
 }
 
 - (IBAction)change:(id)sender

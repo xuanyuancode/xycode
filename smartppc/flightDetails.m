@@ -32,7 +32,7 @@
         int compareint1 = ((AppDelegate *)APPDELEGATE).fv.indexing;
         int compareint2 = ((AppDelegate *)APPDELEGATE).fv.indexing2;
         
-        
+        [bgview release];
         
         if (compareint1 == 0 && compareint2 == 1 ) {
             
