@@ -73,26 +73,40 @@ static float yellow_B = 231.0/255;
     switch (state)
     {
         case 1000:
-            [theview addSubview:[[TurboButtonView alloc]initWithFrame:CGRectMake(0, 0, width, hight)]];
+            {
+            TurboButtonView *tbv=[[TurboButtonView alloc]initWithFrame:CGRectMake(0, 0, width, hight)];
+           [theview addSubview:tbv];[tbv release];}
             break;
         case 1001:
-            [theview addSubview:[[ParentalControlView alloc]initWithFrame:CGRectMake(0, 0, width, hight)]];
+            {
+            ParentalControlView *pv=[[ParentalControlView alloc]initWithFrame:CGRectMake(0, 0, width, hight)];
+            [theview addSubview:pv];[pv release];
+            }  
             break;
         case 1002:
-            [theview addSubview:[[QuoteSharingView alloc]initWithFrame:CGRectMake(0, 0, width, hight)]];
-            break;
+           {QuoteSharingView *qsv=[[QuoteSharingView alloc]initWithFrame:CGRectMake(0, 0, width, hight)];
+            [theview addSubview:qsv];[qsv release];
+            }break;
         case 1003:
-            [theview addSubview:[[FacebookZeroView alloc]initWithFrame:CGRectMake(0, 0, width, hight)]];
-            break;
+        {
+            FacebookZeroView *fzv=[[FacebookZeroView alloc]initWithFrame:CGRectMake(0, 0, width, hight)];
+            [theview addSubview:fzv];[fzv release];
+        }   break;
         case 1004: 
-            [theview addSubview:[[X_Day_Pass alloc]initWithFrame:CGRectMake(0, 0, width, hight)]];
+        {
+            X_Day_Pass *xdp=[[X_Day_Pass alloc]initWithFrame:CGRectMake(0, 0, width, hight)];
+            [theview addSubview:xdp];[xdp release];
+        }
             break;
         case 1005:
-            [theview addSubview:[[QuotaQueryView alloc]initWithFrame:CGRectMake(0, 0, width, hight)]];
+        {QuotaQueryView *qqv=[[QuotaQueryView alloc]initWithFrame:CGRectMake(0, 0, width, hight)];
+            [theview addSubview:qqv];[qqv release];};
             break;
         case 1006:
-            [theview addSubview:[[HistoryView alloc]initWithFrame:CGRectMake(0, 0, width, hight)]];
-            break;
+        {
+            HistoryView *hv=[[HistoryView alloc]initWithFrame:CGRectMake(0, 0, width, hight)];
+            [theview addSubview:hv];[hv release];
+        }   break;
         default:
             break;
     }
