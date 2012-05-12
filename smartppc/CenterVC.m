@@ -269,18 +269,6 @@ if (result==1){
     [av1 release];
 }
 
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    if (buttonIndex == 1) {
-        int result = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@addorder.xql?orderid=%d&userid=%@",websv,orderid,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
-        if (result==1) {
-            NSLog(@"ok %d",result);
-            [self loadqqdata];
-            [self.orderview.tableview reloadData];
-        }
-    }
-}
-
 - (NSData*)httppost:(NSString *)xql data:(NSData*)data
 {
     NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",websv,xql]]]; 
