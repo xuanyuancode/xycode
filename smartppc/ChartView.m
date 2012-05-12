@@ -62,6 +62,7 @@ static float yellow_B = 231.0/255;
       alable.backgroundColor = [UIColor clearColor];
       CGContextRef cn = UIGraphicsGetCurrentContext();
     [self addSubview:alable];
+    [alable release];
       [self drawfirst:cn];
       [self drawimg:used :total :cn];
 }
