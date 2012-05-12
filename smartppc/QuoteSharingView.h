@@ -31,7 +31,9 @@
     UIButton *minusButton;
     
     BOOL tipstatus;
-    
+    BOOL tipstatus2;
+    BOOL noralstatus;
+    BOOL passwordStatus;
     
     NSString *getNumber2;
     NSString *getName2;

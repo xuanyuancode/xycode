@@ -180,6 +180,12 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             UIAlertView * aout = [[UIAlertView alloc] initWithTitle:@"infomation" message:@"success !" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
             [aout show];
         }
+        
+        else {
+            UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Information" message:@"Your password is incorrect" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            [error show];
+            [error release];
+        }
     }
 }
 
