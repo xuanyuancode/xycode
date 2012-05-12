@@ -15,6 +15,9 @@
 #import "FacebookZeroView.h"
 #import "HistoryView.h"
 #import "QuoteSharingView.h"
+#import "ifaddrs.h"
+#import "sys/socket.h"
+#import "net/if.h"
 
 @interface SmartPpcVC ()
 
@@ -23,7 +26,8 @@
 @implementation SmartPpcVC
 
 @synthesize menu,state;
-
+@synthesize limited,oldbyte,speed;
+static int timelong = 3;
 static int width = 740;
 static int hight = 560;
 static float yellow_R = 231.0/255;
@@ -37,6 +41,7 @@ static float yellow_B = 231.0/255;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
     }
     return self;
 }
@@ -52,6 +57,30 @@ static float yellow_B = 231.0/255;
     [self.menu addObserver:self forKeyPath:@"state" options:NSKeyValueObservingOptionNew context:NULL];
     
     [super viewDidLoad];
+    
+    speed = ([self truevolume] - oldbyte)/1024/timelong;
+    
+    oldbyte = [self truevolume];
+    
+    //self.title = [NSString stringWithFormat:@"%dKB/S",speed];
+    
+    [NSTimer scheduledTimerWithTimeInterval:2.0
+                                     target:self
+                                   selector:@selector(speedmethod:)
+                                   userInfo:nil
+                                    repeats:YES];
+    
+    
+}
+
+-(IBAction)speedmethod:(id)sender
+{
+
+    speed = ([self truevolume] - oldbyte)/1024/timelong;
+    
+    oldbyte = [self truevolume];
+    
+    self.title = [NSString stringWithFormat:@"%dKB/S",speed];
 }
 
 - (void)viewDidUnload
@@ -59,6 +88,57 @@ static float yellow_B = 231.0/255;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
+
+
+
+- (int)truevolume
+{
+    BOOL   success;
+    struct ifaddrs *addrs;
+    const struct ifaddrs *cursor;
+    const struct if_data *networkStatisc; 
+    
+    int WiFiSent = 0;
+    int WiFiReceived = 0;
+    int WWANSent = 0;
+    int WWANReceived = 0;
+    
+    NSString *name=[[NSString alloc]init];
+    
+    success = getifaddrs(&addrs) == 0;
+    if (success) 
+    {
+        cursor = addrs;
+        while (cursor != NULL) 
+        {
+            name=[NSString stringWithFormat:@"%s",cursor->ifa_name];
+            
+            if (cursor->ifa_addr->sa_family == AF_LINK) 
+            {
+                if ([name hasPrefix:@"en"]) 
+                {
+                    networkStatisc = (const struct if_data *) cursor->ifa_data;
+                    WiFiSent+=networkStatisc->ifi_obytes;
+                    WiFiReceived+=networkStatisc->ifi_ibytes;
+                }
+                
+                if ([name hasPrefix:@"pdp_ip"]) 
+                {
+                    networkStatisc = (const struct if_data *) cursor->ifa_data;
+                    WWANSent+=networkStatisc->ifi_obytes;
+                    WWANReceived+=networkStatisc->ifi_ibytes;
+                } 
+            }
+            
+            cursor = cursor->ifa_next;
+        }
+        
+        freeifaddrs(addrs);
+    }       
+    
+    return WiFiSent+WiFiReceived+WWANSent+WWANReceived;
+}
+
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {

@@ -411,59 +411,82 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     getQuote2 = quote2.text;
     addtofile = [[NSMutableArray alloc]init];
     
-    if (countAdd >0) {
+    NSDictionary *qqdata = [[NSDictionary alloc]initWithDictionary:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@qqdata.xql?user=%@",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]];    
+    
+    
+    id key_topV =@"topV";
+    int total = [[qqdata valueForKey:key_topV] intValue];
+    
+    
+    if (total < [getQuote1 intValue] || total < [getQuote2 intValue]) {
         
-        if ([getName1 length]< 1 || [getNumber1 length] < 1 || [getQuote1 length] < 1 || [getName2 length]< 1 || [getNumber2 length] < 1 || [getQuote2 length] < 1) 
-        {
-            UIAlertView *myalert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill up blank" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            
-            [myalert show];
-            [myalert release];
-            
-        }
-        else {
-            
-            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Please enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-            password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
-            [password setBackgroundColor:[UIColor whiteColor]];
-            password.secureTextEntry = YES;
-            [myAlertView addSubview:password];
-            [myAlertView show];
-            [myAlertView release];
-            
-        }
-        
+        UIAlertView *myalert = [[UIAlertView alloc]initWithTitle:@"Information" message:@"You share quote can't be more than total" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [myalert show];
+        [myalert release];
         
         
     }
     
+    
     else {
         
-        if ([getName1 length]< 1 || [getNumber1 length] < 1 || [getQuote1 length] < 1) 
-        {
-            UIAlertView *myalert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill up blank" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        if (countAdd >0) {
             
-            [myalert show];
-            [myalert release];
+            if ([getName1 length]< 1 || [getNumber1 length] < 1 || [getQuote1 length] < 1 || [getName2 length]< 1 || [getNumber2 length] < 1 || [getQuote2 length] < 1) 
+            {
+                UIAlertView *myalert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill up blank" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                
+                [myalert show];
+                [myalert release];
+                
+            }
+            else {
+                
+                UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Please enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+                password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+                [password setBackgroundColor:[UIColor whiteColor]];
+                password.secureTextEntry = YES;
+                [myAlertView addSubview:password];
+                [myAlertView show];
+                [myAlertView release];
+                
+            }
             
-        }
-        else 
-        {
             
-            
-            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Please enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-            password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
-            [password setBackgroundColor:[UIColor whiteColor]];
-            password.secureTextEntry = YES;
-            [myAlertView addSubview:password];
-            [myAlertView show];
-            [myAlertView release];
-            
-            saveStatus = YES;
             
         }
         
+        else {
+            
+            if ([getName1 length]< 1 || [getNumber1 length] < 1 || [getQuote1 length] < 1) 
+            {
+                UIAlertView *myalert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill up blank" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                
+                [myalert show];
+                [myalert release];
+                
+            }
+            else 
+            {
+                
+                
+                UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Please enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+                password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+                [password setBackgroundColor:[UIColor whiteColor]];
+                password.secureTextEntry = YES;
+                [myAlertView addSubview:password];
+                [myAlertView show];
+                [myAlertView release];
+                
+                saveStatus = YES;
+                
+            }
+            
+        }
+        
+        
     }
+    
     
 
  
@@ -534,11 +557,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         getName2 = name2.text;
         getQuote2 = quote2.text;
         
-        if (countAdd == 0) {
-          getNumber2 = @"";
-           getName2 = @"";
-          getQuote2 = @"";
-        }
+        
         
         // if savestatus is true then means it has two users
         if (saveStatus) {
@@ -550,10 +569,9 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             NSDictionary * dict1 = [NSDictionary dictionaryWithObjectsAndKeys:getName1,key1,getNumber1,key2,getQuote1,key3,nil];
             NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:getName2,key1,getNumber2,key2,getQuote2,key3,nil];
             
+            NSLog(@"dict2:%@",dict2);
             NSArray * alist = [NSArray arrayWithObjects:dict1,dict2, nil];
-            [addtofile addObject:getName1];
-            [addtofile addObject:getNumber1];
-            [addtofile addObject:getQuote1];
+            
             
             [self httppost:[NSString stringWithFormat:@"%@updataqs.xql?userid=%@",websv,[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:alist format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
             

@@ -43,23 +43,25 @@ static int timelong = 1;
    //NSLog(@"final value %@",[thedict objectForKey:@"value"]);
    
    
-   if ([[thedict objectForKey:@"value"] intValue] >0)
+   if ([[thedict objectForKey:@"value"] intValue] > 0)
    {
       comfirm = NO;
    }
     
    else {
        comfirm = YES;
+       
        autoTimer = [NSTimer scheduledTimerWithTimeInterval:(4.0)
                                                     target:self 
                                                   selector:@selector(lagEffect) 
                                                   userInfo:nil 
                                                    repeats:YES];
+       
    }
 
     if (comfirm) {
        
-       NSLog(@"comfirm status");
+       NSLog(@"comfirm,,,,, status");
       
        NSLog(@"autotimer:%@,",autoTimer);
       
@@ -152,7 +154,7 @@ static int timelong = 1;
 -(void)lagEffect
 {
     count++;
-    
+      [myIndicator startAnimating];
     NSLog(@"count %d",count);
     
     if (count == 4) {
@@ -160,35 +162,15 @@ static int timelong = 1;
         count = 0;
     }
     
-    [myIndicator startAnimating];
+  
     [moviePlayerController pause];
     [self performSelector:@selector(playagain) withObject:nil afterDelay:2.0];
 
     //[self playagain];
 }
 
--(void)lagEffect2
-{
-    NSLog(@"FFF");
-    
-    if (alertStatus) {
-        UIAlertView *customAlertView = [[UIAlertView alloc]initWithTitle:@"Information"
-                                                                 message:@"Subscribe Turbo Button,enjoy max. bandwidth up to 3.6Mbps!"
-                                                                delegate:self
-                                                       cancelButtonTitle:@"NO"
-                                                       otherButtonTitles:@"YES",nil];
-        [customAlertView show];
-        [customAlertView release];
-        alertStatus = NO;
-    }
-    
-    [myIndicator startAnimating];
-    [moviePlayerController pause];
-    [self performSelector:@selector(playagain2) withObject:nil afterDelay:3.0];
-    //sleep(3);
-    //[moviePlayerController play];
-    
-}
+ 
+
 -(void)playagain
 {
    [myIndicator stopAnimating];
@@ -196,13 +178,7 @@ static int timelong = 1;
    //[self play];
 }
 
--(void)playagain2
-{
-    
-    [myIndicator stopAnimating];
-    //[moviePlayerController play];
-    [self play];
-}
+
 - (void)moviePlaybackComplete:(NSNotification *)notification
 {
     if ([autoTimer isValid]) {
@@ -247,6 +223,7 @@ static int timelong = 1;
        NSLog(@"willdisappear go");
     }
    
+    
     [myIndicator stopAnimating];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object:nil];
 }
@@ -261,6 +238,7 @@ static int timelong = 1;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    checkagain = NO;
      
     
 myIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
@@ -275,7 +253,7 @@ myIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIA
     timer = [NSTimer scheduledTimerWithTimeInterval:timelong target:self selector:@selector(showspeed) userInfo:nil repeats:YES];
     alertStatus = YES;
    playStatus = YES;
-    NSLog(@"i am good");
+  
     [self play];
 }
 
@@ -331,7 +309,14 @@ myIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIA
     if(checkvalue2 == 0)
     {
         if ([autoTimer isValid]) {
-            NSLog(@"reached autotimer");
+            
+            if (!checkagain) {
+                [moviePlayerController.view addSubview:myIndicator];
+                [myIndicator stopAnimating];
+                [[[UIApplication sharedApplication] keyWindow] addSubview:myIndicator]; 
+                checkagain = YES;
+            }
+            
         }
         else {
             NSLog(@"SET UP ");
@@ -344,6 +329,7 @@ myIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIA
 
 -(void)lagtimer
 {
+    [myIndicator startAnimating];
     autoTimer = [NSTimer scheduledTimerWithTimeInterval:(4.0)
                                                  target:self 
                                                selector:@selector(lagEffect) 

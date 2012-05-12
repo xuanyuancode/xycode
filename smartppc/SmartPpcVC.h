@@ -14,4 +14,7 @@
 
 @property(nonatomic,retain) SmartppcMenu *menu;
 @property int state;
+@property int oldbyte;
+@property int speed;
+@property Boolean limited;
 @end
