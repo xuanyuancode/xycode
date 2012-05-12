@@ -33,8 +33,12 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     fv = [[flightInfo alloc]init];
     resultFlight = [[flightResult alloc]init];
     
-    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CenterVC alloc] init]];
-
+   // self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[CenterVC alloc] init]];
+   //--
+    CenterVC *vc=[[CenterVC alloc] init];
+    self.window.rootViewController = [[[UINavigationController alloc] initWithRootViewController:vc]autorelease]; 
+    [vc release];
+    //--
     return YES;
 }
 
@@ -70,9 +74,10 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
+    
 }
 
 @end
