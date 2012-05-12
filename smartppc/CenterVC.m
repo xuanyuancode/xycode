@@ -291,7 +291,9 @@ if (result==1){
     NSString * urlstring = [NSString stringWithFormat:@"%@qqdata.xql?user=%@",websv,[self getusernumber]];
     
     NSURL * aurl = [NSURL URLWithString:urlstring];
-    qqdata = [[NSMutableDictionary alloc]initWithDictionary:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:aurl]mutabilityOption:0 format:NULL errorDescription:Nil]];                 
+    qqdata =[[[NSMutableDictionary alloc]initWithDictionary:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:aurl]mutabilityOption:0 format:NULL errorDescription:Nil]]autorelease];
+    
+    //[nsm release];
 }
 
 - (void)sendorder

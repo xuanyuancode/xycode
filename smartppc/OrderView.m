@@ -471,7 +471,7 @@ static int scroll_hight = 100;
                 break;
             case 102:{
                 if ([password.text isEqualToString:@"1234"]){  
-                    int i;
+                    int i=0;
                     switch (selectline) {
                         case 1:
                         {
@@ -503,6 +503,8 @@ static int scroll_hight = 100;
                             break;
                     }
                     
+                    if (i!=0) {
+                        
                     
                     int result = [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@addorder.xql?orderid=%d&userid=%@",websv,i,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
                     if (result==1) {
@@ -512,6 +514,7 @@ static int scroll_hight = 100;
                         [p release];
                         [self loadqqdata];
                         [self.tableview reloadData];
+                    }
                     }
                 }
             }
