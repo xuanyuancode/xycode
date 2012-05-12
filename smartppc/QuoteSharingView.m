@@ -280,7 +280,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             number22.backgroundColor = [UIColor clearColor];
             number22.text = @"Number:";
             
-        name22 = [[UILabel alloc]initWithFrame:CGRectMake(270, 20, 100, 30)];
+            name22 = [[UILabel alloc]initWithFrame:CGRectMake(270, 20, 100, 30)];
             name22.textColor = [UIColor blackColor];
             name22.backgroundColor = [UIColor clearColor];
             name22.text = @"Name:";
@@ -604,6 +604,12 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             getName2 = name2.text;
             getQuote2 = quote2.text;
             
+            if (countAdd == 0) {
+                getNumber2 = @"";
+                getName2 = @"";
+                getQuote2 = @"";
+                
+            }
     
             
             
