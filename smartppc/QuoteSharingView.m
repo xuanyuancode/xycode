@@ -48,8 +48,9 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         saveStatus = NO;
         tipstatus = NO;
         filestatus  =NO;
-        
-        
+        noralstatus = NO;
+        tipstatus2 = NO;
+        passwordStatus = NO;
         NSData *adata = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@qsdata.xql?userid=%@",websv,[self getusernumber]]]];
         NSArray *list1 = [NSPropertyListSerialization propertyListFromData:adata mutabilityOption:0 format:NULL errorDescription:nil];
         
@@ -279,7 +280,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             number22.backgroundColor = [UIColor clearColor];
             number22.text = @"Number:";
             
-        name22 = [[UILabel alloc]initWithFrame:CGRectMake(270, 20, 100, 30)];
+            name22 = [[UILabel alloc]initWithFrame:CGRectMake(270, 20, 100, 30)];
             name22.textColor = [UIColor blackColor];
             name22.backgroundColor = [UIColor clearColor];
             name22.text = @"Name:";
@@ -299,9 +300,10 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
        
             quote2.borderStyle = UITextBorderStyleRoundedRect;
             
-            NSLog(@"namearray,%@",nameArray);
+         
             
-            if ([nameArray count]>1) {
+           // NSString *checkname = [NSString stringWithFormat:@"%@",[nameArray objectAtIndex:1]];
+            if ([nameArray count] >1) {
                 name2.text = [nameArray objectAtIndex:indexPath.row];
                 number2.text = [telArray objectAtIndex:indexPath.row];
                 quote2.text = [limitArray objectAtIndex:indexPath.row];
@@ -416,7 +418,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     
     id key_topV =@"topV";
     int total = [[qqdata valueForKey:key_topV] intValue];
-    
+    NSLog(@"1111");
     
     if (total < [getQuote1 intValue] || total < [getQuote2 intValue]) {
         
@@ -424,16 +426,17 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         [myalert show];
         [myalert release];
         
-        
+         NSLog(@"222");
     }
     
     
     else {
-        
+         NSLog(@"333");
         if (countAdd >0) {
-            
+             NSLog(@"444");
             if ([getName1 length]< 1 || [getNumber1 length] < 1 || [getQuote1 length] < 1 || [getName2 length]< 1 || [getNumber2 length] < 1 || [getQuote2 length] < 1) 
             {
+                 NSLog(@"555");
                 UIAlertView *myalert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill up blank" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 
                 [myalert show];
@@ -441,7 +444,9 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
                 
             }
             else {
-                
+                 NSLog(@"666");
+                NSLog(@"ppppp");
+           
                 UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Please enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
                 password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
                 [password setBackgroundColor:[UIColor whiteColor]];
@@ -449,7 +454,8 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
                 [myAlertView addSubview:password];
                 [myAlertView show];
                 [myAlertView release];
-                
+                noralstatus = YES;
+                passwordStatus = YES;
             }
             
             
@@ -479,7 +485,8 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
                 [myAlertView release];
                 
                 saveStatus = YES;
-                
+                noralstatus = YES;
+                passwordStatus = YES;
             }
             
         }
@@ -544,100 +551,154 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     NSLog(@"string entered=%@",password.text);
     if (buttonIndex == 0) {
         tipstatus = NO;
+        tipstatus2 = NO;
+        noralstatus = NO;
+        passwordStatus = NO;
     }
-    else if(buttonIndex == 1 && [password.text isEqualToString:@"1234"]) 
-    {
-        
-        NSString *getNumber1 = number1.text;
-        NSString *getName1 =name1.text;
-        NSString *getQuote1 = quote.text;
+    
+    if (buttonIndex == 1) {
         
         
-        getNumber2 = number2.text;
-        getName2 = name2.text;
-        getQuote2 = quote2.text;
-        
-        
-        
-        // if savestatus is true then means it has two users
-        if (saveStatus) {
+        if (buttonIndex == 1 && tipstatus2 && [password.text isEqualToString:@"1234"])
+        {
+            NSLog(@"wtffff");
+            [b1 setTitle:@"Buy" forState:UIControlStateNormal];
+            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
+            NSString *documentsDirectoryPath = [paths objectAtIndex:0];
             
-            id key1 = @"name";
-            id key2 = @"tel";
+            NSString *databaseFile = [documentsDirectoryPath stringByAppendingPathComponent:@"quoteShare.txt"];
+            
+            NSFileManager *fileManager = [NSFileManager defaultManager];
+            [fileManager removeItemAtPath:databaseFile error:NULL];
+            
+            id key1 = @"tel";
+            id key2 = @"name";
             id key3 = @"limit";
             
-            NSDictionary * dict1 = [NSDictionary dictionaryWithObjectsAndKeys:getName1,key1,getNumber1,key2,getQuote1,key3,nil];
-            NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:getName2,key1,getNumber2,key2,getQuote2,key3,nil];
-            
-            NSLog(@"dict2:%@",dict2);
-            NSArray * alist = [NSArray arrayWithObjects:dict1,dict2, nil];
-            
+            NSDictionary *dict1= [[NSDictionary alloc]initWithObjectsAndKeys:@"",key1,@"",key2,@"",key3,nil];
+            NSArray * alist = [[NSArray alloc]initWithObjects:dict1, nil];
             
             [self httppost:[NSString stringWithFormat:@"%@updataqs.xql?userid=%@",websv,[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:alist format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
             
-            UIAlertView *myalertview2 = [[UIAlertView alloc]initWithTitle:@"Congratulations" message:@"You have subscribe the package successfully" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [myalertview2 show];
-            [myalertview2 release];
+            list = [[NSMutableArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@qsdata.xql?userid=%@",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]]; 
+            
+            number1.text = @"";
+            name1.text = @"";
+            quote.text = @"";
+            
+            [tableview reloadData];
+            tableview.hidden = YES;
+            tipstatus2 = NO;
+        }
+        
+        
+         if(buttonIndex == 1 && noralstatus && [password.text isEqualToString:@"1234"]) 
+        {
+            noralstatus = NO;
+            NSString *getNumber1 = number1.text;
+            NSString *getName1 =name1.text;
+            NSString *getQuote1 = quote.text;
+            
+            
+            getNumber2 = number2.text;
+            getName2 = name2.text;
+            getQuote2 = quote2.text;
+            
+            if (countAdd == 0) {
+                getNumber2 = @"";
+                getName2 = @"";
+                getQuote2 = @"";
+                
+            }
+    
+            
+            
+            // if savestatus is true then means it has two users
+            if (saveStatus) {
+                
+                id key1 = @"name";
+                id key2 = @"tel";
+                id key3 = @"limit";
+                
+                NSDictionary * dict1 = [NSDictionary dictionaryWithObjectsAndKeys:getName1,key1,getNumber1,key2,getQuote1,key3,nil];
+                NSDictionary * dict2 = [NSDictionary dictionaryWithObjectsAndKeys:getName2,key1,getNumber2,key2,getQuote2,key3,nil];
+                
+                NSLog(@"dict2:%@",dict2);
+                NSArray * alist = [NSArray arrayWithObjects:dict1,dict2, nil];
+                
+                
+                [self httppost:[NSString stringWithFormat:@"%@updataqs.xql?userid=%@",websv,[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:alist format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
+                
+                UIAlertView *myalertview2 = [[UIAlertView alloc]initWithTitle:@"Congratulations" message:@"You have subscribe the package successfully" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [myalertview2 show];
+                [myalertview2 release];
+                
+            }
+            
+            else {
+                id key1 = @"name";
+                id key2 = @"tel";
+                id key3 = @"limit";
+                
+                NSDictionary * dict1 = [NSDictionary dictionaryWithObjectsAndKeys:getName1,key1,getNumber1,key2,getQuote1,key3,nil];
+                
+                
+                NSArray * alist = [NSArray arrayWithObjects:dict1,dict1, nil];
+                
+                
+                [addtofile addObject:getName1];
+                [addtofile addObject:getNumber1];
+                [addtofile addObject:getQuote1];
+                
+                [self httppost:[NSString stringWithFormat:@"updataqs.xql?userid=%@",[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:alist format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
+                
+                UIAlertView *myalertview2 = [[UIAlertView alloc]initWithTitle:@"Congratulations" message:@"You have subscribe the package successfully" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [myalertview2 show];
+                [myalertview2 release];
+                
+            }
             
         }
         
-        else {
-            id key1 = @"name";
-            id key2 = @"tel";
-            id key3 = @"limit";
+        
+        
+         if(buttonIndex == 1 && tipstatus)
+        {
             
-            NSDictionary * dict1 = [NSDictionary dictionaryWithObjectsAndKeys:getName1,key1,getNumber1,key2,getQuote1,key3,nil];
-
             
-            NSArray * alist = [NSArray arrayWithObjects:dict1,dict1, nil];
-
-            
-            [addtofile addObject:getName1];
-            [addtofile addObject:getNumber1];
-            [addtofile addObject:getQuote1];
-            
-            [self httppost:[NSString stringWithFormat:@"updataqs.xql?userid=%@",[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:alist format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
-            
-            UIAlertView *myalertview2 = [[UIAlertView alloc]initWithTitle:@"Congratulations" message:@"You have subscribe the package successfully" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
-            [myalertview2 show];
-            [myalertview2 release];
+            UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Please enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+            password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+            [password setBackgroundColor:[UIColor whiteColor]];
+            password.secureTextEntry = YES;
+            [myAlertView addSubview:password];
+            [myAlertView show];
+            [myAlertView release];
+            passwordStatus = YES;
+            tipstatus2 = YES;
             
         }
         
-    }
+    if (![password.text isEqualToString:@"1234"] && passwordStatus) {
+       
+        UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Information" message:@"Your password is incorrect" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [error show];
+        [error release];
+        passwordStatus = NO;
+        
+    } 
+        
     
-    else if(buttonIndex == 1 && tipstatus)
-    {
-        [b1 setTitle:@"Buy" forState:UIControlStateNormal];
-          
-        
-        NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
-        NSString *documentsDirectoryPath = [paths objectAtIndex:0];
-        
-        NSString *databaseFile = [documentsDirectoryPath stringByAppendingPathComponent:@"quoteShare.txt"];
-        
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        [fileManager removeItemAtPath:databaseFile error:NULL];
-        
-        id key1 = @"tel";
-        id key2 = @"name";
-        id key3 = @"limit";
 
-        NSDictionary *dict1= [[NSDictionary alloc]initWithObjectsAndKeys:@"",key1,@"",key2,@"",key3,nil];
-        NSArray * alist = [[NSArray alloc]initWithObjects:dict1, nil];
         
-        [self httppost:[NSString stringWithFormat:@"%@updataqs.xql?userid=%@",websv,[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:alist format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
         
-        list = [[NSMutableArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@qsdata.xql?userid=%@",websv,[self getusernumber]]]]mutabilityOption:0 format:NULL errorDescription:Nil]]; 
         
-       number1.text = @"";
-      name1.text = @"";
-        quote.text = @"";
         
-        [tableview reloadData];
-        tableview.hidden = YES;
+        
+        
+        
     }
     
+       
     
 }
 
@@ -650,13 +711,16 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 {
     UIButton * abutton = (UIButton*) sender;
     if (abutton.titleLabel.text == @"Cancel") {
-        
-        UIAlertView *tipalert = [[UIAlertView alloc]initWithTitle:@"Information" message:@"The Quote sharing package will be cancel" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
-        
-        [tipalert show];
-        [tipalert release];
-        
-        tipstatus = YES;
+        UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Please enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
+        password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+        [password setBackgroundColor:[UIColor whiteColor]];
+        password.secureTextEntry = YES;
+        [myAlertView addSubview:password];
+        [myAlertView show];
+        [myAlertView release];
+
+        passwordStatus = YES;
+        tipstatus2 = YES;
       
     }else {
         [b1 setTitle:@"Cancel" forState:UIControlStateNormal];

@@ -144,6 +144,11 @@ static float blue_B = 241.0/255;
         
         alertid = 0;
     }
+    else {
+        UIAlertView *error = [[UIAlertView alloc]initWithTitle:@"Information" message:@"Your password is incorrect" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+        [error show];
+        [error release];
+    }
     }}
 
 @end
