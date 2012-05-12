@@ -20,6 +20,7 @@
     BOOL playStatus;
     SmartPpcVC *vc1;
     int count;
+    BOOL checkagain;
 }
 -(IBAction)cancel:(id)sender;
 -(void)play;
