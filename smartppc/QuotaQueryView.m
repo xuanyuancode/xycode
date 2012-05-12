@@ -99,11 +99,16 @@ static float yellow_B = 231.0/255;
     id key_nopackageV = @"nopackageV";
     id key_speed = @"speed";
  
+  int package = [[qqdata valueForKey:key_package] intValue];
+    if (package == 0) {
+        [self removeFromSuperview];
+        return;
+    }
     
  int total = [[qqdata valueForKey:key_topV] intValue];
  int used = [[qqdata valueForKey:key_chargeV] intValue];
  int speed = [[qqdata valueForKey:key_speed] intValue];
- int package = [[qqdata valueForKey:key_package] intValue];
+
  int actualV = [[qqdata valueForKey:key_actualV] intValue];
  int chargeV = [[qqdata valueForKey:key_chargeV] intValue];
  int NpackageV = [[qqdata valueForKey:key_nopackageV] intValue];
