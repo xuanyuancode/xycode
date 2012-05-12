@@ -109,10 +109,12 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             UIImageView *backupimgview = [[UIImageView alloc]initWithFrame:CGRectMake(10, 10, backupimg.size.width, backupimg.size.height)];
             backupimgview.image = backupimg;
             [cell.contentView addSubview:backupimgview];
+            [backupimgview release];
             UILabel *backup = [[UILabel alloc]initWithFrame:CGRectMake(80, 17, 200, 30 )];
             backup.text = @"Back up contacts";
             backup.backgroundColor = [UIColor clearColor];
             [cell.contentView addSubview:backup];
+            [backup release];
         }
         
         else 
@@ -124,12 +126,13 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             restoreimgview.image = restoreimg;
             
             [cell.contentView addSubview:restoreimgview];
-            
+            [restoreimgview release];
             UILabel *restore = [[UILabel alloc]initWithFrame:CGRectMake(80, 17, 200, 30 )];
             restore.text = @"Restore contacts";
             restore.backgroundColor =  [UIColor clearColor];
             
             [cell.contentView addSubview:restore];
+            [restore release];
         }
         
         
