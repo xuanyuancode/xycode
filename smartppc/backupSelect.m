@@ -374,8 +374,18 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     bool didSave;
     CFErrorRef error = NULL;
     
+    //先取现有电话号码
+    NSMutableArray *arrayfromlocal=[self backup];
+    for(int j = 0; j < [arrayfromlocal count]; j++)
+    {
     for(int i = 0; i < [list count]; i++)
     {
+        // NSDictionary *thedict = [[NSDictionary alloc]initWithObjectsAndKeys:tel,key1,fname,key2,lname,key3,city,key4,nil];
+        NSDictionary *dict=( NSDictionary *)[arrayfromlocal objectAtIndex:j];
+        
+       if (![(NSString *)[dict valueForKey:tel]isEqualToString:[[list objectAtIndex:i] objectForKey:tel]]) {
+            
+        
         ABRecordRef record = ABPersonCreate();
         ABRecordSetValue(record, kABPersonFirstNameProperty,(CFStringRef)[[list objectAtIndex:i] objectForKey:fname], &error);
         ABRecordSetValue(record, kABPersonLastNameProperty,(CFStringRef)[[list objectAtIndex:i] objectForKey:lname], &error);
@@ -423,6 +433,8 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         ABAddressBookAddRecord(addressBook, record, &error);
         
         CFRelease(address);
+       }
+    }
     }
     
     if (ABAddressBookHasUnsavedChanges(addressBook)) {
