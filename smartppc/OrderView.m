@@ -115,8 +115,11 @@ static int scroll_hight = 100;
         aview.backgroundColor = [UIColor colorWithRed:0.94 green:0.94 blue:0.94 alpha:1];
         [aview addSubview:button];
         [aview addSubview:thelable1];
+        [thelable1 release];
         [aview addSubview:thelable2];
+        [thelable2 release];
         [scrollview addSubview:aview];
+        [aview release];
         
     }
     [self layoutScrollImages];

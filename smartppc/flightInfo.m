@@ -113,9 +113,11 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     [self.view addSubview:cityButton];
     [self.view addSubview:fromLabel];[fromLabel release]; 
     [self.view addSubview:toLabel];
+    [toLabel release];
     [self.view addSubview:city];
+    [city release];
     [self.view addSubview:dateLabel];
-
+    [dateLabel release];
 }
 
 -(IBAction)searchMethod:(id)sender

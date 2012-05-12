@@ -319,7 +319,6 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
                 city = (NSString*)s3;
             }
         }
-        NSLog(@"city:%@",city);
         
         
         ABMultiValueRef phones = ABRecordCopyValue(person, kABPersonPhoneProperty);
@@ -331,7 +330,6 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             }
             
         }
-        NSLog(@"tel:%@",tel);
         
         NSDictionary *thedict = [[NSDictionary alloc]initWithObjectsAndKeys:tel,key1,fname,key2,lname,key3,city,key4,nil];
         [list addObject:thedict];
