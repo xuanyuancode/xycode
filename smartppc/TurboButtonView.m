@@ -139,7 +139,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     {
         NSFileManager *fm = [[NSFileManager alloc]init];
         NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-        
+        [fm release];
         id key1 = @"user";
         return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
     }
@@ -179,6 +179,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@settb.xql?value=%0.0f&type=%@&userid=%@",websv,s2.value,@"volume",[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
             UIAlertView * aout = [[UIAlertView alloc] initWithTitle:@"infomation" message:@"success !" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
             [aout show];
+            [aout release];
         }
         
         else {

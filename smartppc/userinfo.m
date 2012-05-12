@@ -24,7 +24,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         names = [[NSArray alloc]initWithObjects:@"name",@"access",@"location",@"devtype",@"devsz",@"age",@"gender",nil];
     }
     
-    for (int i=0; i<[list count]; i++) {
+    for (int i=0; i<[self.list count]; i++) {
         [self showline:i];
     }
     return self;
@@ -43,16 +43,18 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 {
     UILabel * l1 = [[UILabel alloc]initWithFrame:CGRectMake(40, 40 + i*50, 100, 30)];
     l1.text = [names objectAtIndex:i];
+    [l1 release];
     UITextField * t1 = [[UITextField alloc]initWithFrame:CGRectMake(200, 40+i*50, 100, 30)];
     t1.borderStyle = UITextBorderStyleRoundedRect;
     t1.text = [list objectAtIndex:i]; 
+    [t1 release];
 }
 
 - (NSString*)getusernumber
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }

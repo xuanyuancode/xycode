@@ -32,7 +32,7 @@
         int compareint1 = ((AppDelegate *)APPDELEGATE).fv.indexing;
         int compareint2 = ((AppDelegate *)APPDELEGATE).fv.indexing2;
         
-        
+        [bgview release];
         
         if (compareint1 == 0 && compareint2 == 1 ) {
             
@@ -437,6 +437,12 @@
         [self addSubview:flightTime2];
         [self addSubview:airport2];
         [self addSubview:lowestOffer2];
+        [order1 release];
+        [flightModel2 release];
+        [departureTime2 release];
+        [flightTime2 release];
+        [airport2 release];
+        [lowestOffer2 release];
         
         
    

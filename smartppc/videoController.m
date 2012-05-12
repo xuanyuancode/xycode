@@ -31,7 +31,7 @@ static int timelong = 1;
 {
    NSFileManager *fm = [[NSFileManager alloc]init];
    NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-   
+    [fm release];
    id key1 = @"user";
    return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }
@@ -132,6 +132,7 @@ static int timelong = 1;
        alertStatus = YES;
        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object: nil];
        [self.navigationController pushViewController:smart animated:YES];
+        [smart release];
    }
     
 }
@@ -279,14 +280,14 @@ myIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIA
     }
     [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@settb.xql?value=%f&type=%@&userid=%@",websv,value,@"volume",[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
     
-    
-  if ([[[NSString alloc]initWithString:[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getxdporder.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil]]intValue] > 0)
+    NSString *a=[[NSString alloc]initWithString:[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getxdporder.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil]];
+  if ([a intValue] > 0)
   {
     [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=nopackageV&userid=%@&volume=%f",websv,[self getusernumber],(timelong*speed/1024.0/8.0)]] encoding:NSUTF8StringEncoding error:nil];
   }else {
       [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=chargeV&userid=%@&volume=%f",websv,[self getusernumber],(timelong*speed/1024.0/8.0)]] encoding:NSUTF8StringEncoding error:nil];
   }
-    
+    [a release];
     
     
     info = [NSString stringWithFormat:@"%0.0fM free",value];
