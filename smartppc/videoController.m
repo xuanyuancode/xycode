@@ -312,8 +312,13 @@ myIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIA
     
     int r = arc4random() % 120;
     NSLog(@"%d",r);
-
-    self.title = [NSString stringWithFormat:@"%dKb/S  %@",speed-r,info];
+    
+    if (speed -r > 0) {
+        self.title = [NSString stringWithFormat:@"%dKb/S  %@",speed-r,info];
+    }else {
+        self.title = [NSString stringWithFormat:@"%dKb/S  %@",0,info];
+    }
+    
     
     thedict = [[NSMutableDictionary alloc]initWithDictionary:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getplist.xql?userid=%@&data=tb",websv,[self getusernumber]]]] mutabilityOption:0 format:NULL errorDescription:nil]]; 
     
