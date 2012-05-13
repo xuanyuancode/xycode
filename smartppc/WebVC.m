@@ -17,7 +17,7 @@
 @end
 
 @implementation WebVC
-@synthesize webview,url,timer,speed,free,timer2,thefind,limited,oldbyte;
+@synthesize webview,url,timer,speed,free,thefind,limited,oldbyte;//,timer2
 
 
 static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xql/";
@@ -44,7 +44,7 @@ static int timelong = 3;
 
     
     [self.view addSubview:webview];
-    
+   // webview.tag=1010;
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
 }
@@ -101,26 +101,38 @@ static int timelong = 3;
 {
     NSFileManager *fm = [[NSFileManager alloc]init];
     NSString* rootpath = [[[fm URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] objectAtIndex:0] path];
-    
+    [fm release];
     id key1 = @"user";
     return [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[rootpath stringByAppendingPathComponent:@"user.xml"]] mutabilityOption:0 format:NULL errorDescription:Nil] objectForKey:key1];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-   // if ([timer isValid]) {
-    //    [timer invalidate];
-   // }
-    
+       /* while ([timer isValid]) {
+           // NSLog(@"isValid");
+          //  NSLog(@"2timer %d",[timer retainCount]);
+            [timer invalidate];
+           // NSLog(@"3timer %d",[timer retainCount]);
+            timer=nil;
+            break;
+        }*/    
+     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showmsg) object: nil];
+ 
+    /*if (!alertStatus) {
+        if (av1) {
+            [av1 dismissWithClickedButtonIndex:0 animated:YES];
+        }
+    }*/
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     if (!timer) {
         
-    
-    timer = [NSTimer scheduledTimerWithTimeInterval:timelong target:self selector:@selector(showspeed) userInfo:nil repeats:YES];
-   
+        NSLog(@"dsds");
+        timer = [NSTimer scheduledTimerWithTimeInterval:timelong target:self selector:@selector(showspeed) userInfo:nil repeats:YES];//retain];
+        NSLog(@"1timer %d",[timer retainCount]);
+        
     }//timer2 = [NSTimer scheduledTimerWithTimeInterval:timelong2 target:self selector:@selector(showmsg) userInfo:nil repeats:YES];
     if (!alertStatus) {
            [self performSelector:@selector(showmsg) withObject:nil afterDelay:5];
@@ -128,13 +140,13 @@ static int timelong = 3;
     }
  
 }
-
+UIAlertView *av1;
 - (void)showmsg
 {
     
     
     if ([url isEqualToString:@"http://www.mtv.com"]) {
-        UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[NSString stringWithFormat:@"Access to %@ enjoy music and free traffic",[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getgarde.xql",websv]] encoding:NSUTF8StringEncoding error:nil]] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO" ,nil];
+        av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:[NSString stringWithFormat:@"Access to %@ enjoy music and free traffic",[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getgarde.xql",websv]] encoding:NSUTF8StringEncoding error:nil]] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO" ,nil];
         limited =NO;
         [av1 show];
         [av1 release];
@@ -153,7 +165,7 @@ static int timelong = 3;
         id key3 = @"sn";
         
         if ([[limit objectForKey:key1] intValue]==1 && [url isEqualToString:@"http://us.battle.net"]) {
-            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"The Site is limited" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil,nil];
+            av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"The Site is limited" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil,nil];
             limited = YES;
             [av1 show];
             [av1 release];
@@ -162,7 +174,7 @@ static int timelong = 3;
                 if ([[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pcison.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue] == 0) 
                 {
                     
-                    UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"Subscribe Parental Control service to make a clean internet for your kids!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO",nil];
+                    av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"Subscribe Parental Control service to make a clean internet for your kids!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO",nil];
                     [av1 show];
                     [av1 release];
                 } 
@@ -171,14 +183,14 @@ static int timelong = 3;
         }
         
         if ([[limit objectForKey:key2] intValue]==1 && [url isEqualToString:@"http://www.ebay.com"]) {
-            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"The Site is limited" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil,nil];
+            av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"The Site is limited" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil,nil];
             limited =YES;
             [av1 show];
             [av1 release];
         }
         
         if ([[limit objectForKey:key3] intValue]==1 && [url isEqualToString:@"http://weibo.com"]) {
-            UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"The Site is limited" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil,nil];
+            av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"The Site is limited" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil,nil];
             limited =YES;
             [av1 show];
             [av1 release];
@@ -186,7 +198,7 @@ static int timelong = 3;
             if ([url isEqualToString:@"http://weibo.com"])  {
                 if ([[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@webisfree.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue] == 0) 
                 {
-                    UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"Subscribe Facebook Zero service for free traffic of FaceBook." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO",nil];
+                    av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"Subscribe Facebook Zero service for free traffic of FaceBook." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO",nil];
                     [av1 show];
                     [av1 release];  
                 } 
@@ -197,7 +209,7 @@ static int timelong = 3;
         if ([url isEqualToString:@"http://weibo.com"])  {
             if ([[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@webisfree.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue] == 0) 
             {
-                UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"Subscribe Facebook Zero service for free traffic of FaceBook." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO",nil];
+                av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"Subscribe Facebook Zero service for free traffic of FaceBook." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO",nil];
                 [av1 show];
                 [av1 release];  
             } 
@@ -208,7 +220,7 @@ static int timelong = 3;
             if ([[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pcison.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue] == 0) 
             {
                 
-                UIAlertView *av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"Subscribe Parental Control service to make a clean internet for your kids!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO",nil];
+                av1 = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"Subscribe Parental Control service to make a clean internet for your kids!" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"GO",nil];
                 [av1 show];
                 [av1 release];
             } 
