@@ -141,7 +141,7 @@ static int timelong = 1;
    }
     
 }
-
+UIAlertView *customAlertView;
 -(void)showalert
 {
     if (alertStatus) {
@@ -197,6 +197,14 @@ static int timelong = 1;
         [timer invalidate];
         timer = nil;
     }
+ 
+    if (!alertStatus) {
+        
+        if (customAlertView) {
+            
+            [customAlertView dismissWithClickedButtonIndex:0 animated:NO];
+        }  
+    }
    
     moviePlayerController = [notification object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -208,7 +216,12 @@ static int timelong = 1;
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object: nil];
     
+     
+    
+    
     if (!pushstatus) {
+         // [customAlertView removeFromSuperview];
+      
         [self.navigationController popViewControllerAnimated:YES];
     }
    
@@ -236,7 +249,7 @@ static int timelong = 1;
     [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@setspeed.xql?userid=%@&speed=0",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
     
 
-    [customAlertView removeFromSuperview];
+    //[customAlertView removeFromSuperview];
    //  [customAlertView dissmissWithClickedButtonIndex:-1 animated:YES]; 
     [myIndicator stopAnimating];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object:nil];
@@ -312,8 +325,13 @@ myIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIA
     
     int r = arc4random() % 120;
     NSLog(@"%d",r);
-
-    self.title = [NSString stringWithFormat:@"%dKb/S  %@",speed-r,info];
+    
+    if (speed -r > 0) {
+        self.title = [NSString stringWithFormat:@"%dKb/S  %@",speed-r,info];
+    }else {
+        self.title = [NSString stringWithFormat:@"%dKb/S  %@",0,info];
+    }
+    
     
     thedict = [[NSMutableDictionary alloc]initWithDictionary:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getplist.xql?userid=%@&data=tb",websv,[self getusernumber]]]] mutabilityOption:0 format:NULL errorDescription:nil]]; 
     

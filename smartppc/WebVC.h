@@ -15,7 +15,7 @@
 @property(nonatomic,retain)UIWebView * webview;
 @property(nonatomic,retain) NSString * url;
 @property(nonatomic,retain)NSTimer * timer;
-@property(nonatomic,retain)NSTimer * timer2;
+//@property(nonatomic,retain)NSTimer * timer2;
 @property(nonatomic,retain)NSMutableArray * thefind;
 @property int speed; 
 @property int free;
