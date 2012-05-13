@@ -17,7 +17,7 @@
 @end
 
 @implementation WebVC
-@synthesize webview,url,timer,speed,free,thefind,limited,oldbyte;//,timer2
+@synthesize webview,url,timer,speed,free,thefind,limited,oldbyte,bbt,fbt;
 
 
 static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xql/";
@@ -41,6 +41,21 @@ static int timelong = 3;
     webview = [[UIWebView  alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
     [webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
     webview.delegate = self; 
+    
+    bbt = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    bbt.frame = CGRectMake(20, 10, 100, 35);
+    [bbt setTitle:@"<< back" forState:UIControlStateNormal];
+    [bbt addTarget:self action:@selector(goback) forControlEvents:UIControlEventTouchDown];
+    bbt.hidden = YES;
+    [self.webview addSubview:bbt];
+
+    fbt = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    fbt.frame = CGRectMake(900, 10, 100, 35);
+    [fbt setTitle:@"forward >>" forState:UIControlStateNormal];
+    [fbt addTarget:self action:@selector(goforward) forControlEvents:UIControlEventTouchDown];
+    fbt.hidden = YES;
+    [self.webview addSubview:fbt];
+
 
     
     [self.view addSubview:webview];
@@ -129,7 +144,6 @@ static int timelong = 3;
 {
     if (!timer) {
         
-        NSLog(@"dsds");
         timer = [NSTimer scheduledTimerWithTimeInterval:timelong target:self selector:@selector(showspeed) userInfo:nil repeats:YES];//retain];
         NSLog(@"1timer %d",[timer retainCount]);
         
@@ -154,11 +168,9 @@ UIAlertView *av1;
 
     
     NSString *parental = [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getparental.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"%@",parental);
     
     if (![parental isEqualToString:@""]) {
     NSDictionary *limit =  [[NSDictionary alloc]initWithDictionary:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getlimit.xql?userid=%@&parental=%@",websv,[self getusernumber],parental]]]mutabilityOption:0 format:NULL errorDescription:Nil]];
-        NSLog(@"%@",limit.description);
         
         id key1 = @"game";
         id key2 = @"shop";
@@ -266,6 +278,20 @@ UIAlertView *av1;
 
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
+    
+    if (webview.canGoBack)
+    {
+        bbt.hidden = NO;
+    }else {
+        bbt.hidden = YES;
+    }
+    
+    if (webview.canGoForward)
+    {
+        fbt.hidden = NO;
+    }else {
+        fbt.hidden = YES;
+    }
 
 if ([url isEqualToString:@"http://www.ebay.com"]) 
 {    
@@ -273,47 +299,50 @@ if ([url isEqualToString:@"http://www.ebay.com"])
     
     id key1 = @"class";
     id key2 = @"url";
-    id key3 = @"time";
     
-    if ([find length] > 0 && [thefind count]==0) {
+ 
+      if ([find length] > 0 && [[find componentsSeparatedByString:@","] count] > 1)
+      {
+    switch ([thefind count]) {
+        case 0:
+        {
+            NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[[find componentsSeparatedByString:@","] objectAtIndex:1],key1,[webView.request.mainDocumentURL description],key2,nil];  
+            [thefind addObject:dict];
+        }
 
-        NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[[find componentsSeparatedByString:@","] objectAtIndex:0],key1,[webView.request.mainDocumentURL description],key2,nil]; 
-        [thefind addObject:dict];
-        NSLog(@"%@",dict.description);
-        NSLog(@"%@", [[[find componentsSeparatedByString:@","] objectAtIndex:0] stringByReplacingOccurrencesOfString:@"&amp;" withString:@""]);
+            break;
+     case 1:
+        {
+                if ([[[find componentsSeparatedByString:@","] objectAtIndex:1] isEqual:[[thefind objectAtIndex:0] objectForKey:key1]] && ![[webView.request.mainDocumentURL description] isEqualToString:(NSString*)[[thefind objectAtIndex:0] objectForKey:key2]]) 
+                {
+                    [thefind addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"ok",key1,[webView.request.mainDocumentURL description],key2,nil]]; 
+                }else {
+                    [thefind removeObjectAtIndex:0]; 
+                    NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithObjectsAndKeys:[[find componentsSeparatedByString:@","] objectAtIndex:1],key1,[webView.request.mainDocumentURL description],key2,nil];  
+                    [thefind addObject:dict];
+                }
         }
-    
-    if ([find length] > 0 && [thefind count]==1) {
-        if (![[webView.request.mainDocumentURL description] isEqualToString:[[thefind objectAtIndex:0] objectForKey:key2]] && [[[find componentsSeparatedByString:@","] objectAtIndex:0] isEqual:[[thefind objectAtIndex:0] objectForKey:key1]]) 
-            {
-                
-               [thefind addObject:[NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithDouble:[[[NSDate alloc]init] timeIntervalSince1970]],key3,[webView.request.mainDocumentURL description],key2,nil]]; 
-            }
-        }
-    
-    if ([thefind count]==2) {
-        NSLog(@"%f %@",([[[NSDate alloc]init] timeIntervalSince1970] - [[[thefind objectAtIndex:1]objectForKey:key3] floatValue]),thefind.description);
-       
-        
-        if ( [[[NSDate alloc]init] timeIntervalSince1970] - [[[thefind objectAtIndex:1]objectForKey:key3] floatValue] >8) {
+        break;
+    case 2:
+        {
             [self addlike:[[thefind objectAtIndex:0] objectForKey:key1]];
             [thefind removeObjectAtIndex:1]; 
-            [thefind removeObjectAtIndex:0]; 
-        }else {
-            [thefind removeObjectAtIndex:1]; 
-            [thefind removeObjectAtIndex:0]; 
+            [thefind removeObjectAtIndex:0];   
         }
-        }   
+        break;  
+        default:
+            break;
     }
+      }    
      
+    }
 }
 
 - (void) addlike:(NSString*)like
 {
-    NSString * as =  [NSString stringWithFormat:@"%@addlike.xql?userid=%@&like=%@",websv,[self getusernumber],[like stringByReplacingOccurrencesOfString:@"&amp;" withString:@""]];
-    
-    [NSString stringWithContentsOfURL:[NSURL URLWithString:as] encoding:NSUTF8StringEncoding error:nil];
-    NSLog(@"add like:%@",as);
+    id key_like=@"like";
+  [self httppost:[NSString stringWithFormat:@"%@addlike.xql?userid=%@",websv,[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:[NSDictionary dictionaryWithObjectsAndKeys:like,key_like,nil] format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
+
 }
 
 - (int)truevolume
@@ -367,6 +396,27 @@ if ([url isEqualToString:@"http://www.ebay.com"])
 - (void) viewDidAppear:(BOOL)animated
 {
    [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@useronline.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil]; 
+}
+
+- (void) goback
+{
+    [webview goBack];
+}
+
+- (void) goforward
+{
+    [webview goForward]; 
+}
+
+- (NSData*)httppost:(NSString *)xql data:(NSData*)data
+{
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:xql]]; 
+    NSString *contentType = [NSString stringWithFormat:@"text/xml"];
+    [req addValue:contentType forHTTPHeaderField: @"Content-Type"];  
+    [req setHTTPMethod:@"POST"];   
+    [req setHTTPBody:data];   
+    NSURLResponse * response = nil;
+    return [NSURLConnection sendSynchronousRequest:req returningResponse:&response error:nil];
 }
 
 

@@ -21,6 +21,8 @@
 @property int free;
 @property Boolean limited;
 @property int oldbyte;
+@property(nonatomic,retain) UIButton * bbt;
+@property(nonatomic,retain) UIButton * fbt;
 
 - (void)showspeed;
 - (NSString*)getusernumber;
