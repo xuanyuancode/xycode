@@ -218,10 +218,7 @@ UIAlertView *customAlertView;
     
      
     
-    if (alertStatus) {
-        if (customAlertView) {[customAlertView dismissWithClickedButtonIndex:-1 animated:NO];
-        }  
-    }
+    
     if (!pushstatus) {
          // [customAlertView removeFromSuperview];
       
@@ -252,7 +249,7 @@ UIAlertView *customAlertView;
     [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@setspeed.xql?userid=%@&speed=0",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
     
 
-    [customAlertView removeFromSuperview];
+    //[customAlertView removeFromSuperview];
    //  [customAlertView dissmissWithClickedButtonIndex:-1 animated:YES]; 
     [myIndicator stopAnimating];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object:nil];
