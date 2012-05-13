@@ -13,7 +13,7 @@
 @implementation videoController
 @synthesize moviePlayerController,autoTimer,myIndicator,thedict,timer;
 @synthesize vc1;
-
+@synthesize customAlertView;
 static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xql/";
 static int timelong = 1;
 
@@ -136,7 +136,7 @@ static int timelong = 1;
        [self.navigationController pushViewController:smart animated:YES];
         [smart release];
         
-        
+         
         
    }
     
@@ -245,13 +245,18 @@ UIAlertView *customAlertView;
         [autoTimer invalidate];
         autoTimer = nil;
        [autoTimer release];
-       NSLog(@"willdisappear go");
     }
    pushstatus = NO;
+    [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@setspeed.xql?userid=%@&speed=0",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
     
+
+    [customAlertView removeFromSuperview];
+   //  [customAlertView dissmissWithClickedButtonIndex:-1 animated:YES]; 
     [myIndicator stopAnimating];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object:nil];
-     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lagEffect) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lagEffect) object:nil];
+    
+    
 }
 -(IBAction)cancel:(id)sender
 {
@@ -321,8 +326,13 @@ myIndicator = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIA
     
     int r = arc4random() % 120;
     NSLog(@"%d",r);
-
-    self.title = [NSString stringWithFormat:@"%dKb/S  %@",speed-r,info];
+    
+    if (speed -r > 0) {
+        self.title = [NSString stringWithFormat:@"%dKb/S  %@",speed-r,info];
+    }else {
+        self.title = [NSString stringWithFormat:@"%dKb/S  %@",0,info];
+    }
+    
     
     thedict = [[NSMutableDictionary alloc]initWithDictionary:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getplist.xql?userid=%@&data=tb",websv,[self getusernumber]]]] mutabilityOption:0 format:NULL errorDescription:nil]]; 
     

@@ -22,12 +22,13 @@
     int count;
     BOOL checkagain;
     BOOL pushstatus;
+    UIAlertView *customAlertView;
 }
 -(IBAction)cancel:(id)sender;
 -(void)play;
 -(void)lagEffect;
 -(void)showspeed;
-
+@property (nonatomic,retain) UIAlertView *customAlertView;
 @property (nonatomic,retain) MPMoviePlayerController *moviePlayerController;
 @property (nonatomic,retain) NSTimer *autoTimer;
 @property (nonatomic,retain) UIActivityIndicatorView *myIndicator;

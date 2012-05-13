@@ -177,7 +177,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     if (buttonIndex == 1) {
         if ([password.text isEqualToString:@"1234"]) {
             [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@settb.xql?value=%0.0f&type=%@&userid=%@",websv,s2.value,@"volume",[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
-            UIAlertView * aout = [[UIAlertView alloc] initWithTitle:@"infomation" message:@"success !" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+            UIAlertView * aout = [[UIAlertView alloc] initWithTitle:@"Information" message:@"Your service has been actived !" delegate:nil cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
             [aout show];
             [aout release];
         }
