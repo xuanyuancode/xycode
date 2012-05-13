@@ -35,6 +35,8 @@
     BOOL noralstatus;
     BOOL passwordStatus;
     
+    BOOL countstatus;
+    
     NSString *getNumber2;
     NSString *getName2;
     NSString *getQuote2;
