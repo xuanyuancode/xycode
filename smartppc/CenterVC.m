@@ -147,6 +147,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     
      package = [[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getpackagename.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] ;
     
+    
     UILabel *savingLabel = [[UILabel alloc]initWithFrame:CGRectMake(800, 5 ,100, 30)];
     savingLabel.text = @"Total Saving:";
     savingLabel.backgroundColor = [UIColor clearColor];
@@ -183,6 +184,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     chartview.used = [[qqdata objectForKey:key1] floatValue];
  
     chartview.package = [NSString stringWithFormat:@"Package:%@MB/month", package];
+    
     if (i==0) {
         chartview.package = @"No package";
     }    
@@ -336,8 +338,17 @@ if (result==1){
     chartview = [[ChartView alloc] initWithFrame:CGRectMake(420,250,580,190)];
     self.chartview.used = [[qqdata objectForKey:key1] floatValue];
     self.chartview.total = [[qqdata objectForKey:key2] floatValue];
+     package = [[NSString alloc]initWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@getpackagename.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] ;
     
     self.chartview.package = [NSString stringWithFormat:@"Package:%@MB/month", package];
+    
+    id key3 = @"package"; 
+    int i = [[qqdata objectForKey:key3] intValue];
+    
+    if (i==0) {
+        self.chartview.package = @"No package";
+    }    
+
 
     totalSaving.text = [NSString stringWithFormat:@"%0.0fKb",[[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=nopackageV&userid=%@&volume=0",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] floatValue]*1024.0];
     
