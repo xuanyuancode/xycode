@@ -141,11 +141,11 @@ static int timelong = 1;
    }
     
 }
-
+UIAlertView *customAlertView;
 -(void)showalert
 {
     if (alertStatus) {
-        UIAlertView *customAlertView = [[UIAlertView alloc]initWithTitle:@"Information"
+        customAlertView = [[UIAlertView alloc]initWithTitle:@"Information"
                                                             message:@"Subscribe Turbo Button,enjoy max. bandwidth up to 3.6Mbps!"
                                                             delegate:self
                                                             cancelButtonTitle:@"NO"
@@ -197,6 +197,12 @@ static int timelong = 1;
         [timer invalidate];
         timer = nil;
     }
+    //if (alertStatus) {
+        if (customAlertView) {
+           
+            [customAlertView dismissWithClickedButtonIndex:0 animated:NO];
+        }  
+   // }
    
     moviePlayerController = [notification object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
@@ -208,7 +214,15 @@ static int timelong = 1;
     
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object: nil];
     
+     
+    
+    if (alertStatus) {
+        if (customAlertView) {[customAlertView dismissWithClickedButtonIndex:-1 animated:NO];
+        }  
+    }
     if (!pushstatus) {
+         // [customAlertView removeFromSuperview];
+      
         [self.navigationController popViewControllerAnimated:YES];
     }
    
