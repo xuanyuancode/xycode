@@ -108,16 +108,20 @@ static int timelong = 3;
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    if ([timer isValid]) {
-        [timer invalidate];
-    }
+   // if ([timer isValid]) {
+    //    [timer invalidate];
+   // }
     
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    if (!timer) {
+        
+    
     timer = [NSTimer scheduledTimerWithTimeInterval:timelong target:self selector:@selector(showspeed) userInfo:nil repeats:YES];
-    //timer2 = [NSTimer scheduledTimerWithTimeInterval:timelong2 target:self selector:@selector(showmsg) userInfo:nil repeats:YES];
+   
+    }//timer2 = [NSTimer scheduledTimerWithTimeInterval:timelong2 target:self selector:@selector(showmsg) userInfo:nil repeats:YES];
     if (!alertStatus) {
            [self performSelector:@selector(showmsg) withObject:nil afterDelay:5];
         alertStatus = YES;

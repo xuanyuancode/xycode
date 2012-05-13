@@ -143,7 +143,6 @@ static float blue_B = 241.0/255;
     buttonTag = bt.tag;
     
     NSLog(@"buttontag%d",buttonTag);
-   id key = @"price";
    
     if ([bt.titleLabel.text isEqualToString:@"Buy"]) {
         
