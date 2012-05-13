@@ -214,7 +214,7 @@ static float blue_B = 241.0/255;
             NSLog(@"%@",[NSString stringWithFormat:@"%@setxdporder.xql?userid=%@&name=%@",websv,[self getusernumber],ordername]);
             [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@setxdporder.xql?userid=%@&name=%@",websv,[self getusernumber],ordername]] encoding:NSUTF8StringEncoding error:nil];
 
-            UIAlertView *mysuccess = [[UIAlertView alloc]initWithTitle:@"Informatioin" message:@"Your previous X-Day Pass has been cancel " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+            UIAlertView *mysuccess = [[UIAlertView alloc]initWithTitle:@"Informatioin" message:@"Your previous X-Day Pass has been cancel and new service has been actived " delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
             [mysuccess show];
             [mysuccess release];
             

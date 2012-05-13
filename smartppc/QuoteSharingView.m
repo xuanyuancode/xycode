@@ -559,18 +559,10 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     if (buttonIndex == 1) {
         
         
-        if (buttonIndex == 1 && tipstatus2 && [password.text isEqualToString:@"1234"])
+        if (tipstatus2 && [password.text isEqualToString:@"1234"])
         {
             NSLog(@"wtffff");
             [b1 setTitle:@"Buy" forState:UIControlStateNormal];
-            NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES); 
-            NSString *documentsDirectoryPath = [paths objectAtIndex:0];
-            
-            NSString *databaseFile = [documentsDirectoryPath stringByAppendingPathComponent:@"quoteShare.txt"];
-            
-            NSFileManager *fileManager = [NSFileManager defaultManager];
-            [fileManager removeItemAtPath:databaseFile error:NULL];
-            
             id key1 = @"tel";
             id key2 = @"name";
             id key3 = @"limit";
@@ -586,13 +578,23 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             name1.text = @"";
             quote.text = @"";
             
+            number2.text = @"";
+            name2.text = @"";
+            quote2.text = @"";
+            
             [tableview reloadData];
             tableview.hidden = YES;
             tipstatus2 = NO;
+            
+            UIAlertView *cancelalert = [[UIAlertView alloc]initWithTitle:@"Information" message:@"Your service has been cancel" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+    
+            [cancelalert show];
+            [cancelalert release];
+            
         }
         
         
-         if(buttonIndex == 1 && noralstatus && [password.text isEqualToString:@"1234"]) 
+         if(noralstatus && [password.text isEqualToString:@"1234"]) 
         {
             noralstatus = NO;
             NSString *getNumber1 = number1.text;
@@ -604,15 +606,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             getName2 = name2.text;
             getQuote2 = quote2.text;
             
-            if (countAdd == 0) {
-                getNumber2 = @"";
-                getName2 = @"";
-                getQuote2 = @"";
-                
-            }
-    
-            
-            
+
             // if savestatus is true then means it has two users
             if (saveStatus) {
                 
@@ -685,18 +679,9 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         [error release];
         passwordStatus = NO;
         
-    } 
+    }   
         
-    
-
-        
-        
-        
-        
-        
-        
-        
-    }
+}
     
        
     

@@ -399,7 +399,7 @@ static float blue_B = 241.0/255;
                     id key = @"tel";
                     [self httppost:[NSString stringWithFormat:@"%@pcupdata.xql?userid=%@",websv,[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:list format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
                     [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@addparental.xql?userid=%@&id=%@",websv,[self getusernumber],[[list objectAtIndex:state-1] objectForKey:key]]] encoding:NSUTF8StringEncoding error:nil] intValue];
-                    UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"ok" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+                    UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"Information" message:@"ok" delegate:self cancelButtonTitle:@"Your service has been actived" otherButtonTitles:nil, nil];
                     [aout show];
                     [aout release];
                 }
@@ -409,7 +409,7 @@ static float blue_B = 241.0/255;
                     [[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@pconoff.xql?userid=%@",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] intValue];
                     [b1 setTitle:@"buy" forState:UIControlStateNormal];
                     tableview.hidden = YES;
-                    UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"canceled" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+                    UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"Information" message:@"Your service has been cancel" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
                     [aout show];
                     [aout release];
                 }
