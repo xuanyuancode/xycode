@@ -94,6 +94,8 @@ static float yellow_B = 231.0/255;
     if (way==1) {
     [b1 setImage:[UIImage imageNamed:@"checkbox_on_background.png"] forState:UIControlStateNormal];
     [b2 setImage:[UIImage imageNamed:@"checkbox_off_background.png"] forState:UIControlStateNormal];
+        [b3 setHidden:NO];
+        [b4 setHidden:YES];
     }else {
     [b1 setImage:[UIImage imageNamed:@"checkbox_off_background.png"] forState:UIControlStateNormal];
     [b2 setImage:[UIImage imageNamed:@"checkbox_on_background.png"] forState:UIControlStateNormal];
