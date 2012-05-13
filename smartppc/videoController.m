@@ -13,7 +13,7 @@
 @implementation videoController
 @synthesize moviePlayerController,autoTimer,myIndicator,thedict,timer;
 @synthesize vc1;
-
+@synthesize customAlertView;
 static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xql/";
 static int timelong = 1;
 
@@ -136,7 +136,7 @@ static int timelong = 1;
        [self.navigationController pushViewController:smart animated:YES];
         [smart release];
         
-        
+         
         
    }
     
@@ -145,7 +145,7 @@ static int timelong = 1;
 -(void)showalert
 {
     if (alertStatus) {
-        UIAlertView *customAlertView = [[UIAlertView alloc]initWithTitle:@"Information"
+        customAlertView = [[UIAlertView alloc]initWithTitle:@"Information"
                                                             message:@"Subscribe Turbo Button,enjoy max. bandwidth up to 3.6Mbps!"
                                                             delegate:self
                                                             cancelButtonTitle:@"NO"
@@ -231,13 +231,18 @@ static int timelong = 1;
         [autoTimer invalidate];
         autoTimer = nil;
        [autoTimer release];
-       NSLog(@"willdisappear go");
     }
    pushstatus = NO;
+    [NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@setspeed.xql?userid=%@&speed=0",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil];
     
+
+    [customAlertView removeFromSuperview];
+   //  [customAlertView dissmissWithClickedButtonIndex:-1 animated:YES]; 
     [myIndicator stopAnimating];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object:nil];
-     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lagEffect) object:nil];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lagEffect) object:nil];
+    
+    
 }
 -(IBAction)cancel:(id)sender
 {
