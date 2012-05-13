@@ -125,7 +125,7 @@ static float blue_B = 241.0/255;
             case 100:
             {
                 [b1 setTitle:@"Cancel" forState:UIControlStateNormal];
-                UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"ok" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+                UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"Information" message:@"Your service has been actived successfully" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [aout show];
                 [aout release];
             }
@@ -133,7 +133,7 @@ static float blue_B = 241.0/255;
             case 101:
             {
                  [b1 setTitle:@"Buy" forState:UIControlStateNormal];  
-                UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"infomation" message:@"cenceled" delegate:self cancelButtonTitle:@"ok" otherButtonTitles:nil, nil];
+                UIAlertView * aout = [[UIAlertView alloc]initWithTitle:@"Information" message:@"Your service has been cancel" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [aout show];
                 [aout release];
             }

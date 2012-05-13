@@ -22,7 +22,8 @@ static int timelong = 1;
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Custom initialization
+        // Custom initializatio
+        pushstatus = NO;
     }
     return self;
 }
@@ -126,6 +127,7 @@ static int timelong = 1;
     
     else if (buttonIndex == 1)
     {
+        pushstatus = YES;
        [myIndicator stopAnimating];
        SmartPpcVC *smart = [[SmartPpcVC alloc]init];
        smart.state = 1000;
@@ -133,6 +135,9 @@ static int timelong = 1;
        [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object: nil];
        [self.navigationController pushViewController:smart animated:YES];
         [smart release];
+        
+        
+        
    }
     
 }
@@ -200,8 +205,13 @@ static int timelong = 1;
     [moviePlayerController.view removeFromSuperview];
     [moviePlayerController release];
     playStatus = NO;
- //   [self.navigationController popViewControllerAnimated:YES];
     
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object: nil];
+    
+    if (!pushstatus) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+   
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -223,10 +233,11 @@ static int timelong = 1;
        [autoTimer release];
        NSLog(@"willdisappear go");
     }
-   
+   pushstatus = NO;
     
     [myIndicator stopAnimating];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(playagain) object:nil];
+     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(lagEffect) object:nil];
 }
 -(IBAction)cancel:(id)sender
 {
