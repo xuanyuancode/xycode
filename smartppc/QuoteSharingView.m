@@ -51,6 +51,8 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         noralstatus = NO;
         tipstatus2 = NO;
         passwordStatus = NO;
+        
+        countstatus = NO;
         NSData *adata = [NSData dataWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@qsdata.xql?userid=%@",websv,[self getusernumber]]]];
         NSArray *list1 = [NSPropertyListSerialization propertyListFromData:adata mutabilityOption:0 format:NULL errorDescription:nil];
         
@@ -373,7 +375,9 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     [name22 setHidden:YES];
     [minusButton setHidden:YES];
     countAdd = 0;
+    countstatus = YES;
     
+   // tipstatus2 = YES;
 
 }
 
@@ -418,25 +422,24 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
     
     id key_topV =@"topV";
     int total = [[qqdata valueForKey:key_topV] intValue];
-    NSLog(@"1111");
-    
+
     if (total < [getQuote1 intValue] || total < [getQuote2 intValue]) {
         
         UIAlertView *myalert = [[UIAlertView alloc]initWithTitle:@"Information" message:@"You share quote can't be more than total" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
         [myalert show];
         [myalert release];
         
-         NSLog(@"222");
+     
     }
     
     
     else {
          NSLog(@"333");
         if (countAdd >0) {
-             NSLog(@"444");
+        
             if ([getName1 length]< 1 || [getNumber1 length] < 1 || [getQuote1 length] < 1 || [getName2 length]< 1 || [getNumber2 length] < 1 || [getQuote2 length] < 1) 
             {
-                 NSLog(@"555");
+                
                 UIAlertView *myalert = [[UIAlertView alloc]initWithTitle:@"Alert" message:@"Please fill up blank" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 
                 [myalert show];
@@ -444,8 +447,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
                 
             }
             else {
-                 NSLog(@"666");
-                NSLog(@"ppppp");
+                
            
                 UIAlertView *myAlertView = [[UIAlertView alloc] initWithTitle:@"Please enter for the password" message:@"this gets covered" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
                 password= [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
@@ -456,6 +458,7 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
                 [myAlertView release];
                 noralstatus = YES;
                 passwordStatus = YES;
+                saveStatus =YES;
             }
             
             
@@ -561,7 +564,6 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
         
         if (tipstatus2 && [password.text isEqualToString:@"1234"])
         {
-            NSLog(@"wtffff");
             [b1 setTitle:@"Buy" forState:UIControlStateNormal];
             id key1 = @"tel";
             id key2 = @"name";
@@ -593,10 +595,11 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             
         }
         
+       
         
          if(noralstatus && [password.text isEqualToString:@"1234"]) 
         {
-            noralstatus = NO;
+            
             NSString *getNumber1 = number1.text;
             NSString *getName1 =name1.text;
             NSString *getQuote1 = quote.text;
@@ -606,7 +609,11 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
             getName2 = name2.text;
             getQuote2 = quote2.text;
             
-
+            if (countstatus) {
+                getNumber2 = @"";
+                getName2 = @"";
+                getQuote2 = @"";
+            }
             // if savestatus is true then means it has two users
             if (saveStatus) {
                 
@@ -626,6 +633,8 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
                 UIAlertView *myalertview2 = [[UIAlertView alloc]initWithTitle:@"Congratulations" message:@"You have subscribe the package successfully" delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
                 [myalertview2 show];
                 [myalertview2 release];
+                noralstatus = NO;
+                countstatus  =NO;
                 
             }
             
