@@ -32,7 +32,7 @@ static int title_hight = 40;
         NSArray * web1 = [NSArray arrayWithObjects:@"WorldWarcarft", @"web1.png",@"http://us.battle.net",nil];
         NSArray * web2 = [NSArray arrayWithObjects:@"MTV", @"web2.png",@"http://www.mtv.com",nil];
         NSArray * web3 = [NSArray arrayWithObjects:@"ebay", @"web3.png",@"http://www.ebay.com",nil];
-        NSArray * web4 = [NSArray arrayWithObjects:@"weibo", @"web4.png",@"http://weibo.com",nil];
+        NSArray * web4 = [NSArray arrayWithObjects:@"weibo", @"web5.png",@"http://weibo.com",nil];
         NSArray * web5 = [NSArray arrayWithObjects:@"plus", @"web_add.png",@"",nil];
         webpages = [[NSArray alloc] initWithObjects:web1,web2,web3,web4,web5,nil];
         
