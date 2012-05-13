@@ -197,12 +197,14 @@ UIAlertView *customAlertView;
         [timer invalidate];
         timer = nil;
     }
-    //if (alertStatus) {
+ 
+    if (!alertStatus) {
+        
         if (customAlertView) {
-           
+            
             [customAlertView dismissWithClickedButtonIndex:0 animated:NO];
         }  
-   // }
+    }
    
     moviePlayerController = [notification object];
     [[NSNotificationCenter defaultCenter] removeObserver:self
