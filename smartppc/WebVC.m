@@ -341,6 +341,7 @@ if ([url isEqualToString:@"http://www.ebay.com"])
 - (void) addlike:(NSString*)like
 {
     id key_like=@"like";
+    NSLog(@"%@",like);
   [self httppost:[NSString stringWithFormat:@"%@addlike.xql?userid=%@",websv,[self getusernumber]] data:[NSPropertyListSerialization dataFromPropertyList:[NSDictionary dictionaryWithObjectsAndKeys:like,key_like,nil] format:NSPropertyListXMLFormat_v1_0 errorDescription:nil]];
 
 }

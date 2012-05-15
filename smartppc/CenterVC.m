@@ -56,7 +56,6 @@ static NSString * websv = @"http://192.168.1.104:8080/exist/rest//db/smartpcc/xq
 - (void)viewDidLoad
 
 {    
-  
     if (pass)
     {  
         [self loadtheview];

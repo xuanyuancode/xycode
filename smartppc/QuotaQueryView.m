@@ -111,7 +111,7 @@ static float yellow_B = 231.0/255;
 
  int actualV = [[qqdata valueForKey:key_actualV] intValue];
  int chargeV = [[qqdata valueForKey:key_chargeV] intValue];
- int NpackageV = [[qqdata valueForKey:key_nopackageV] intValue];
+ int NpackageV = [[qqdata valueForKey:key_nopackageV] intValue];  
     
     NSURL * aurl = [NSURL URLWithString:[NSString stringWithFormat:@"%@orderitem.xql",websv]];
     NSArray *orderlist = [[NSArray alloc]initWithArray:[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfURL:aurl]mutabilityOption:0 format:NULL errorDescription:Nil]];
@@ -150,7 +150,7 @@ static float yellow_B = 231.0/255;
      NSString * s3 = [NSString stringWithFormat:@"%d％%",used*100/total];
      NSString * s4 = [NSString stringWithFormat:@"%dKB/S",speed];
      NSString * s5 = [NSString stringWithFormat:@"Your package: %dM/month",package];
-     NSString * s6 = [NSString stringWithFormat:@"Actual Volume: %dM",actualV];
+     NSString * s6 = [NSString stringWithFormat:@"Actual Volume: %dM",chargeV + NpackageV];
      NSString * s7 = [NSString stringWithFormat:@"Charge Volume: %dM",chargeV];
      NSString * s8 = [NSString stringWithFormat:@"Non-package Volume %dM",NpackageV];
      NSString *s10 = [NSString stringWithFormat:@"%0.0fKb",[[NSString stringWithContentsOfURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@subvolume.xql?mode=nopackageV&userid=%@&volume=0",websv,[self getusernumber]]] encoding:NSUTF8StringEncoding error:nil] floatValue]*1024.0];
